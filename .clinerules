@@ -1,0 +1,125 @@
+# Kairos - Reglas y Patrones del Proyecto
+
+## Patrones de Comunicación
+
+1. **Comunicación en Español**
+   - Toda la comunicación con Javier debe ser en español
+   - La documentación interna también debe estar en español
+   - Los comentarios en el código pueden estar en inglés o español
+
+2. **Comunicación por Voz**
+   - Javier se comunica principalmente por voz
+   - Las transcripciones pueden contener errores o glitches
+   - Interpretar lógicamente dentro del contexto de la conversación
+   - Solicitar aclaraciones si algo no está claro
+
+## Patrones de Desarrollo
+
+1. **Estructura de Archivos**
+   - Mantener la organización modular del proyecto
+   - Nuevos componentes UI deben ir en `ui/`
+   - Nuevos modelos deben ir en `models/`
+   - Integraciones con frameworks externos en directorios dedicados
+
+2. **Estilo de Código**
+   - Seguir PEP 8 para código Python
+   - Usar nombres descriptivos en español o inglés
+   - Documentar funciones y clases con docstrings
+   - Mantener consistencia con el estilo existente
+
+3. **Patrones UI**
+   - Usar componentes existentes cuando sea posible
+   - Seguir el sistema de temas definido en `ui/theme.py`
+   - Mantener consistencia visual con el resto de la aplicación
+   - Priorizar usabilidad y claridad sobre complejidad
+
+4. **Gestión de Estado**
+   - Usar `state_manager.py` para gestión centralizada de estado
+   - Evitar estado global fuera del gestor de estado
+   - Implementar patrón observador para actualizaciones de UI
+   - Mantener separación clara entre modelo y vista
+
+## Preferencias de Implementación
+
+1. **Frameworks y Bibliotecas**
+   - Priorizar LangChain sobre CrewAI
+   - Usar PyQt6 para toda la interfaz gráfica
+   - Minimizar dependencias externas adicionales
+   - Preferir bibliotecas estándar de Python cuando sea posible
+
+2. **Enfoque de Desarrollo**
+   - Priorizar funcionalidad mínima viable
+   - Implementar características incrementalmente
+   - Enfocarse en estabilidad antes que en nuevas características
+   - Documentar decisiones de diseño importantes
+
+3. **Optimizaciones**
+   - Priorizar responsividad de UI
+   - Operaciones pesadas en hilos separados
+   - Optimizar actualizaciones frecuentes (throttling)
+   - Implementar caché para operaciones repetitivas
+
+## Patrones de Proyecto Específicos
+
+1. **Flujo de Trabajo UI**
+   - Simplificar a 3 pasos: CONFIGURAR, EJECUTAR, RESULTADOS
+   - Mantener navegación intuitiva entre pasos
+   - Proporcionar feedback visual claro del estado actual
+   - Implementar validación antes de avanzar entre pasos
+
+2. **Monitorización de Agentes**
+   - Usar el adaptador `agent_monitor_adapter.py`
+   - Implementar actualización eficiente de métricas
+   - Proporcionar controles para iniciar/pausar/detener
+   - Mostrar información relevante sin sobrecargar la UI
+
+3. **Plantillas**
+   - Enfocarse en la plantilla BlackHat Intelligence
+   - Mantener estructura YAML consistente
+   - Documentar claramente parámetros y opciones
+   - Proporcionar ejemplos y casos de uso
+
+4. **Reportes y Resultados**
+   - Generar reportes estructurados y accionables
+   - Proporcionar opciones de exportación (PDF, Markdown)
+   - Incluir visualizaciones relevantes
+   - Mantener enfoque en insights prácticos
+
+## Consideraciones Comerciales
+
+1. **Enfoque de Mercado**
+   - Orientación a marketers y analistas de negocio
+   - Énfasis en análisis competitivo y espionaje de mercado
+   - Posicionamiento como herramienta de inteligencia competitiva
+   - Diferenciación mediante facilidad de uso y resultados accionables
+
+2. **Estructura de Producto**
+   - Versión básica con funcionalidad core
+   - Versiones premium con plantillas adicionales
+   - Licencias para diferentes niveles de uso
+   - Posible marketplace para plantillas personalizadas
+
+3. **Materiales de Marketing**
+   - Enfoque en beneficios tangibles y ROI
+   - Demostración de casos de uso prácticos
+   - Capturas de pantalla y videos de alta calidad
+   - Testimonios y casos de éxito (cuando estén disponibles)
+
+## Notas Importantes
+
+1. **Pivote Estratégico**
+   - El proyecto ha pivotado desde simulación de debates hacia inteligencia competitiva
+   - Este cambio responde a necesidades de mercado y oportunidades de monetización
+   - Mantener coherencia con esta nueva dirección en todas las implementaciones
+
+2. **Prioridades Actuales**
+   - Simplificar y mejorar la UI existente
+   - Completar la integración con LangChain
+   - Optimizar la plantilla BlackHat Intelligence
+   - Preparar para comercialización
+
+3. **Desafíos Conocidos**
+   - Complejidad de la UI actual
+   - Integración incompleta con LangChain
+   - Monitorización con latencia y precisión limitada
+   - Necesidad de mejor documentación para usuarios
