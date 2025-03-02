@@ -72,7 +72,8 @@ class StateManager:
             for callback in self._observers[key]:
                 callback(self._state[key])
 
-# Singleton para acceder al gestor de estado
-def get_state_manager() -> StateManager:
-    """Obtener la instancia del gestor de estado."""
-    return StateManager()
+def get_state_manager():
+    """Singleton getter for StateManager"""
+    if StateManager._instance is None:
+        StateManager._instance = StateManager()
+    return StateManager._instance

@@ -418,12 +418,7 @@ class LangChainTeamPanel(QWidget):
                 self.team_list.addItem(item)
     
     def update_from_state(self, teams_state):
-        """
-        Actualiza el panel desde el estado global.
-        
-        Args:
-            teams_state (dict): Estado de los equipos desde el gestor de estado
-        """
+        """Actualiza el panel desde el estado global"""
         if teams_state:
             self.teams = teams_state
             self.team_list.clear()
@@ -432,4 +427,3 @@ class LangChainTeamPanel(QWidget):
                 item = QListWidgetItem(team_data["name"])
                 item.setData(Qt.ItemDataRole.UserRole, team_id)
                 self.team_list.addItem(item)
-```
