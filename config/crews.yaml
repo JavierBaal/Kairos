@@ -1,15 +1,93 @@
 Equipo de Inteligencia Competitiva BlackHat:
   agents:
-  - Analista de Mercado
-  - Investigador Competitivo
-  - Estratega
-  - Cazador de Oportunidades
+  - !!python/object:models.agent_model.AgentModel
+    allow_delegation: true
+    backstory: "Analista con 15 a\xF1os de experiencia en investigaci\xF3n de mercados\
+      \ y big data. He trabajado para Fortune 500 identificando oportunidades antes\
+      \ que la competencia."
+    goal: Identificar patrones y tendencias emergentes en el mercado objetivo
+    name: Analista de Mercado
+    role: "Experto en an\xE1lisis de tendencias y oportunidades de mercado"
+    tools:
+    - SerperDevTool
+    - WebBrowserTool
+    verbose: true
+  - !!python/object:models.agent_model.AgentModel
+    allow_delegation: true
+    backstory: "Ex-consultor de inteligencia competitiva para empresas de tecnolog\xED\
+      a. Mi especialidad es descubrir lo que las empresas intentan ocultar y anticipar\
+      \ sus movimientos."
+    goal: Descubrir estrategias ocultas y vulnerabilidades de la competencia
+    name: Investigador Competitivo
+    role: "Especialista en extraer informaci\xF3n estrat\xE9gica de competidores"
+    tools:
+    - SerperDevTool
+    - WebBrowserTool
+    verbose: true
+  - !!python/object:models.agent_model.AgentModel
+    allow_delegation: true
+    backstory: "Estratega con experiencia en consultor\xEDa de negocios para startups\
+      \ y empresas establecidas. Mi enfoque combina datos duros con intuici\xF3n de\
+      \ mercado."
+    goal: "Crear planes de acci\xF3n efectivos basados en insights competitivos"
+    name: Estratega
+    role: Experto en desarrollo de estrategias basadas en datos
+    tools:
+    - FileReadTool
+    - FileWriteTool
+    verbose: true
+  - !!python/object:models.agent_model.AgentModel
+    allow_delegation: true
+    backstory: "Emprendedor serial con historial de \xE9xito en nuevos mercados. He\
+      \ lanzado 5 startups exitosas identificando oportunidades que otros pasaron\
+      \ por alto."
+    goal: Descubrir nichos inexplorados y oportunidades de crecimiento
+    name: Cazador de Oportunidades
+    role: Especialista en identificar gaps de mercado y oportunidades
+    tools:
+    - SerperDevTool
+    - WebBrowserTool
+    verbose: true
   description: "Equipo especializado en an\xE1lisis competitivo, espionaje de mercado\
     \ y descubrimiento de oportunidades ocultas"
   process: hierarchical
   tasks:
-  - "An\xE1lisis de Competidores"
-  - "An\xE1lisis de Tendencias"
-  - "Identificaci\xF3n de Oportunidades"
-  - "Plan Estrat\xE9gico"
+  - !!python/object:models.task_model.TaskModel
+    agent: Investigador Competitivo
+    description: Identificar y analizar los principales competidores en el mercado
+      objetivo. Descubrir sus fortalezas, debilidades, estrategias de marketing, precios
+      y posicionamiento.
+    expected_output: "Informe detallado de fortalezas, debilidades y estrategias de\
+      \ competidores, incluyendo an\xE1lisis DAFO y recomendaciones para contrarrestar\
+      \ sus ventajas."
+    name: "An\xE1lisis de Competidores"
+    output_file: competitor_analysis.md
+  - !!python/object:models.task_model.TaskModel
+    agent: Analista de Mercado
+    description: "Identificar tendencias emergentes y patrones en el mercado. Analizar\
+      \ cambios en comportamiento de consumidores, nuevas tecnolog\xEDas y factores\
+      \ externos que afectan al mercado."
+    expected_output: "Informe de tendencias actuales y predicciones a corto plazo,\
+      \ con gr\xE1ficos y datos cuantitativos que respalden las conclusiones."
+    name: "An\xE1lisis de Tendencias"
+    output_file: market_trends.md
+  - !!python/object:models.task_model.TaskModel
+    agent: Cazador de Oportunidades
+    description: "Descubrir nichos y oportunidades basadas en los an\xE1lisis previos.\
+      \ Identificar gaps de mercado, necesidades no satisfechas y \xE1reas de potencial\
+      \ crecimiento."
+    expected_output: "Lista priorizada de oportunidades de mercado con potencial,\
+      \ incluyendo tama\xF1o estimado, barreras de entrada y tiempo de implementaci\xF3\
+      n."
+    name: "Identificaci\xF3n de Oportunidades"
+    output_file: opportunities.md
+  - !!python/object:models.task_model.TaskModel
+    agent: Estratega
+    description: "Desarrollar estrategias para capitalizar las oportunidades identificadas.\
+      \ Crear un plan de acci\xF3n detallado con t\xE1cticas espec\xEDficas y m\xE9\
+      tricas de \xE9xito."
+    expected_output: "Plan estrat\xE9gico detallado con acciones concretas, timeline\
+      \ de implementaci\xF3n y KPIs para medir el \xE9xito."
+    name: "Plan Estrat\xE9gico"
+    output_file: strategic_plan.md
   verbose: true
