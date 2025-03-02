@@ -220,3 +220,38 @@ class AgentPanel(QWidget):
     
     def get_agents(self):
         return self.agents
+    
+    def update_from_state(self, agents_state):
+        """
+        Actualiza el panel de agentes desde el estado global.
+        
+        Args:
+            agents_state (dict): Estado de los agentes desde el gestor de estado
+        """
+        if not agents_state:
+            return
+            
+        # Limpiar la lista actual
+        self.agents = []
+        self.agent_list.clear()
+        
+        # Añadir agentes desde el estado
+        for agent_id, agent_data in agents_state.items():
+            agent = {
+                "id": agent_id,
+                "name": agent_data.get("name", "Sin nombre"),
+                "role": agent_data.get("role", "Sin rol"),
+                "model": agent_data.get("model", "gpt-3.5-turbo"),
+                "temperature": agent_data.get("temperature", 0.7),
+                "system_prompt": agent_data.get("system_prompt", ""),
+                "tools": agent_data.get("tools", [])
+            }
+            self.agents.append(agent)
+            self.agent_list.addItem(agent["name"])
+        
+        # Actualizar la interfaz
+        if self.agents:
+            self.agent_list.setCurrentRow(0)
+            self.display_agent(0)
+        else:
+            self.clear_form()

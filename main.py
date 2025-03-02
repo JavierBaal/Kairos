@@ -8,7 +8,8 @@ from PyQt6.QtGui import QAction, QIcon
 from PyQt6.QtCore import QSize
 from ui.task_panel import TaskPanel
 from ui.agent_panel import AgentPanel
-from ui.crew_panel import CrewPanel
+# from ui.crew_panel import CrewPanel  # Comentamos esta línea
+from ui.langchain_team_panel import LangChainTeamPanel  # Importamos el nuevo panel
 from ui.workflow_panel import WorkflowPanel
 from ui.monitor_panel import MonitorPanel  # Nuevo panel de monitorización
 from ui.theme import Theme
@@ -49,14 +50,15 @@ class MainWindow(QMainWindow):
         # Create panels
         self.agent_panel = AgentPanel()
         self.task_panel = TaskPanel()
-        self.crew_panel = CrewPanel()
-        self.monitor_panel = MonitorPanel()  # Nuevo panel de monitorización
+        # self.crew_panel = CrewPanel()  # Comentamos esta línea
+        self.langchain_team_panel = LangChainTeamPanel(self.state_manager)  # Creamos el nuevo panel
+        self.monitor_panel = MonitorPanel()
         
         # Add tabs with icons
         self.tabs.addTab(self.agent_panel, self.get_icon("person"), "Especialistas")
         self.tabs.addTab(self.task_panel, self.get_icon("task"), "Objetivos")
-        self.tabs.addTab(self.crew_panel, self.get_icon("group"), "Equipos")
-        self.tabs.addTab(self.monitor_panel, self.get_icon("monitor"), "Monitorización")  # Nueva pestaña
+        self.tabs.addTab(self.langchain_team_panel, self.get_icon("group"), "Equipos")  # Usamos el nuevo panel
+        self.tabs.addTab(self.monitor_panel, self.get_icon("monitor"), "Monitorización")
         
         # Connect signals for traditional interface
         self.tabs.currentChanged.connect(self.tab_changed)
@@ -106,9 +108,11 @@ class MainWindow(QMainWindow):
         self.state_manager.register_observer("agents", self.task_panel.update_agents_from_state)
         
         # Actualizar panel de equipos cuando cambian los equipos, tareas o agentes
-        self.state_manager.register_observer("crews", self.crew_panel.update_from_state)
-        self.state_manager.register_observer("tasks", self.crew_panel.update_tasks_from_state)
-        self.state_manager.register_observer("agents", self.crew_panel.update_agents_from_state)
+        self.state_manager.register_observer("teams", self.langchain_team_panel.update_from_state)
+        # Ya no necesitamos estas líneas:
+        # self.state_manager.register_observer("crews", self.crew_panel.update_from_state)
+        # self.state_manager.register_observer("tasks", self.crew_panel.update_tasks_from_state)
+        # self.state_manager.register_observer("agents", self.crew_panel.update_agents_from_state)
         
         # Actualizar panel de monitorización cuando cambia el estado de monitorización
         self.state_manager.register_observer("monitoring", self.monitor_panel.update_from_state)
@@ -156,10 +160,11 @@ class MainWindow(QMainWindow):
         # When switching to Tasks tab, update available agents
         if index == 1:  # Tasks tab
             self.task_panel.update_agents(self.agent_panel.get_agents())
+        # Ya no necesitamos esta parte:
         # When switching to Crews tab, update available agents and tasks
-        elif index == 2:  # Crews tab
-            self.crew_panel.update_agents(self.agent_panel.get_agents())
-            self.crew_panel.update_tasks(self.task_panel.tasks)
+        # elif index == 2:  # Crews tab
+        #     self.crew_panel.update_agents(self.agent_panel.get_agents())
+        #     self.crew_panel.update_tasks(self.task_panel.tasks)
     
     def sync_data(self):
         """Sync data between traditional interface and workflow interface"""
@@ -176,7 +181,7 @@ class MainWindow(QMainWindow):
             success = template.apply_template(
                 self.agent_panel,
                 self.task_panel,
-                self.crew_panel
+                self.langchain_team_panel  # Updated to use new panel
             )
             
             if success:
@@ -192,7 +197,6 @@ class MainWindow(QMainWindow):
                 # Save changes to config files
                 self.agent_panel.save_agents()
                 self.task_panel.save_tasks()
-                self.crew_panel.save_crews()
                 
                 # Update workflow panel
                 self.sync_data()
@@ -212,7 +216,7 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event):
         self.agent_panel.save_agents()
         self.task_panel.save_tasks()
-        self.crew_panel.save_crews()
+        # self.crew_panel.save_crews()  # Ya no necesitamos esto
         event.accept()
 
 if __name__ == "__main__":

@@ -20,6 +20,7 @@ class TaskPanel(QWidget):
         super().__init__()
         self.tasks = {}
         self.agents = {}
+        self.available_agents = []  # Added for state management
         self.init_ui()
         
     def init_ui(self):
@@ -208,3 +209,91 @@ class TaskPanel(QWidget):
                         self.task_list.addItem(name)
         except Exception as e:
             QMessageBox.warning(self, "Warning", f"Failed to load tasks: {str(e)}")
+
+    def update_agents_from_state(self, agents_state):
+        """
+        Actualiza la lista de agentes disponibles desde el estado global.
+        
+        Args:
+            agents_state (dict): Estado de los agentes desde el gestor de estado
+        """
+        if not agents_state:
+            return
+            
+        # Limpiar la lista actual de agentes
+        self.available_agents = []
+        
+        # Añadir agentes desde el estado
+        for agent_id, agent_data in agents_state.items():
+            agent = {
+                "id": agent_id,
+                "name": agent_data.get("name", "Sin nombre"),
+                "role": agent_data.get("role", "Sin rol")
+            }
+            self.available_agents.append(agent)
+        
+        # Actualizar los selectores de agentes en las tareas existentes
+        self.update_agent_selectors()
+
+    def update_agent_selectors(self):
+        """
+        Actualiza los selectores de agentes con la lista actual de agentes disponibles.
+        """
+        current_agent = self.task_agent.currentText()
+        
+        self.task_agent.clear()
+        self.task_agent.addItem("")  # Empty option
+        
+        for agent in self.available_agents:
+            self.task_agent.addItem(agent["name"])
+        
+        # Restore selection if possible
+        if current_agent:
+            index = self.task_agent.findText(current_agent)
+            if index >= 0:
+                self.task_agent.setCurrentIndex(index)
+
+    def update_from_state(self, tasks_state):
+        """
+        Actualiza el panel de tareas desde el estado global.
+        
+        Args:
+            tasks_state (dict): Estado de las tareas desde el gestor de estado
+        """
+        if not tasks_state:
+            return
+            
+        # Limpiar la lista actual
+        self.tasks = {}
+        self.task_list.clear()
+        
+        # Añadir tareas desde el estado
+        for task_id, task_data in tasks_state.items():
+            task = TaskModel(
+                name=task_data.get("name", "Sin nombre"),
+                description=task_data.get("description", ""),
+                expected_output=task_data.get("output_format", ""),
+                agent=task_data.get("agent_id", ""),
+                output_file=task_data.get("output_file", "")
+            )
+            
+            self.tasks[task.name] = task
+            self.task_list.addItem(task.name)
+        
+        # Actualizar la interfaz
+        if self.tasks:
+            self.task_list.setCurrentRow(0)
+            self.load_task(self.task_list.item(0))
+        else:
+            self.clear_form()
+
+    def display_task(self, index):
+        """
+        Muestra los detalles de una tarea en el formulario.
+        
+        Args:
+            index (int): Índice de la tarea en la lista
+        """
+        if 0 <= index < len(self.tasks):
+            task_name = self.task_list.item(index).text()
+            self.load_task(self.task_list.item(index))
