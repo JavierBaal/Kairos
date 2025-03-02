@@ -11,8 +11,12 @@ import sys
 import subprocess
 import time  # Add this import
 
-# Add the parent directory to sys.path to make the models module accessible
-sys.path.append('/Users/vanguardhive/Desktop/TRABAJOS/SALA-CREATIVA/CrewalAIGui')
+# Ensure models module is accessible
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
 from models.crew_model import CrewModel
 
 class SelectItemsDialog(QDialog):
@@ -375,16 +379,11 @@ class CrewPanel(QWidget):
         script = [
             "#!/usr/bin/env python",
             "from crewai import Agent, Task, Crew, Process",
-            "from crewai_tools import SerperDevTool, WebBrowserTool, FileReadTool, FileWriteTool",
             "",
             "def main():",
-            "    # Initialize tools",
-            "    tools = {",
-            "        'SerperDevTool': SerperDevTool(),",
-            "        'WebBrowserTool': WebBrowserTool(),",
-            "        'FileReadTool': FileReadTool(),",
-            "        'FileWriteTool': FileWriteTool()",
-            "    }",
+            "    # Nota: Las herramientas específicas se han desactivado temporalmente",
+            "    # debido a problemas de compatibilidad",
+            "    tools = {}",
             "",
             "    # Create agents",
         ]

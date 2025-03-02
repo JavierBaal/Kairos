@@ -1,1 +1,32 @@
-{}
+"An\xE1lisis de Competidores":
+  agent: Investigador Competitivo
+  description: Identificar y analizar los principales competidores en el mercado objetivo.
+    Descubrir sus fortalezas, debilidades, estrategias de marketing, precios y posicionamiento.
+  expected_output: "Informe detallado de fortalezas, debilidades y estrategias de\
+    \ competidores, incluyendo an\xE1lisis DAFO y recomendaciones para contrarrestar\
+    \ sus ventajas."
+  output_file: competitor_analysis.md
+"An\xE1lisis de Tendencias":
+  agent: Analista de Mercado
+  description: "Identificar tendencias emergentes y patrones en el mercado. Analizar\
+    \ cambios en comportamiento de consumidores, nuevas tecnolog\xEDas y factores\
+    \ externos que afectan al mercado."
+  expected_output: "Informe de tendencias actuales y predicciones a corto plazo, con\
+    \ gr\xE1ficos y datos cuantitativos que respalden las conclusiones."
+  output_file: market_trends.md
+"Identificaci\xF3n de Oportunidades":
+  agent: Cazador de Oportunidades
+  description: "Descubrir nichos y oportunidades basadas en los an\xE1lisis previos.\
+    \ Identificar gaps de mercado, necesidades no satisfechas y \xE1reas de potencial\
+    \ crecimiento."
+  expected_output: "Lista priorizada de oportunidades de mercado con potencial, incluyendo\
+    \ tama\xF1o estimado, barreras de entrada y tiempo de implementaci\xF3n."
+  output_file: opportunities.md
+"Plan Estrat\xE9gico":
+  agent: Estratega
+  description: "Desarrollar estrategias para capitalizar las oportunidades identificadas.\
+    \ Crear un plan de acci\xF3n detallado con t\xE1cticas espec\xEDficas y m\xE9\
+    tricas de \xE9xito."
+  expected_output: "Plan estrat\xE9gico detallado con acciones concretas, timeline\
+    \ de implementaci\xF3n y KPIs para medir el \xE9xito."
+  output_file: strategic_plan.md

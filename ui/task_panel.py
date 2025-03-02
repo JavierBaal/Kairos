@@ -7,8 +7,12 @@ import yaml
 import os
 import sys
 
-# Add the parent directory to sys.path to make the models module accessible
-sys.path.append('/Users/vanguardhive/Desktop/TRABAJOS/SALA-CREATIVA/CrewalAIGui')
+# Ensure models module is accessible
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+if parent_dir not in sys.path:
+    sys.path.append(parent_dir)
+
 from models.task_model import TaskModel
 
 class TaskPanel(QWidget):
