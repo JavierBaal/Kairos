@@ -46,7 +46,7 @@ if %ERRORLEVEL% NEQ 0 (
 echo.
 echo Paso 2: Instalando LangChain y sus dependencias...
 echo (Este proceso puede tardar varios minutos)
-%PYTHON_PATH% -m pip install -r requirements_langchain.txt
+%PYTHON_PATH% -m pip install -r ..\config_files\requirements_langchain.txt
 if %ERRORLEVEL% NEQ 0 (
     echo.
     echo Error al instalar LangChain. Intentando instalar los paquetes individualmente...

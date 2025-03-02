@@ -1,106 +1,94 @@
 # Kairos Intelligence System
 
-<p align="center">
-  <img src="docs/images/logo.png" alt="Kairos Intelligence System Logo" width="200"/>
-</p>
+Kairos es una plataforma para la creación y gestión de equipos de agentes de IA. Este documento proporciona información sobre cómo ejecutar, configurar y distribuir Kairos.
 
-## Descripción
+## Estructura del Proyecto
 
-Kairos Intelligence System es una plataforma avanzada para la creación, gestión y ejecución de equipos de agentes de IA. Permite a usuarios sin conocimientos técnicos aprovechar el poder de los sistemas multiagente a través de una interfaz gráfica intuitiva y plantillas predefinidas para casos de uso específicos.
+El proyecto está organizado en las siguientes carpetas:
 
-## Características Principales
+- **config/**: Configuración de agentes, tareas y equipos
+- **config_files/**: Archivos de configuración del proyecto
+- **dist/**: Ejecutables generados por PyInstaller
+- **dist_tools/**: Herramientas para empaquetar y distribuir Kairos
+- **installers/**: Scripts para instalar dependencias
+- **langchain_prototype/**: Implementación de Kairos con LangChain
+- **models/**: Modelos de datos
+- **run_scripts/**: Scripts para ejecutar Kairos
+- **ui/**: Interfaz de usuario
 
-- **Interfaz de Flujo de Trabajo Horizontal**: Diseñada para usuarios no técnicos, con un proceso paso a paso intuitivo
-- **Plantillas Premium Predefinidas**: Configuraciones listas para usar en casos de uso específicos
-- **Tema Profesional Estilo JetBrains**: Interfaz moderna con tema oscuro por defecto
-- **Gestión Visual de Equipos**: Crea y conecta especialistas de IA visualmente
-- **Compatibilidad con CrewAI**: Aprovecha el poder del framework CrewAI sin escribir código
+## Scripts Principales
 
-## Plantillas Incluidas
+En la raíz del proyecto hay tres scripts principales:
 
-### BlackHat Intelligence System
-Equipo especializado en análisis competitivo y espionaje de mercado, que incluye:
-- Analista de Mercado
-- Investigador Competitivo
-- Estratega
-- Cazador de Oportunidades
+- **run_kairos.bat**: Ejecuta Kairos
+- **install.bat**: Instala las dependencias necesarias
+- **package.bat**: Empaqueta Kairos como un ejecutable independiente
 
-Ideal para descubrir oportunidades de mercado ocultas y analizar competidores.
+## Opciones de Ejecución
 
-## Requisitos
+Kairos ofrece varias opciones para ejecutar la aplicación:
 
-- Python 3.8 o superior
-- PyQt6
-- CrewAI y sus dependencias
+### 1. Ejecución con LangChain (Recomendado)
 
-## Instalación
+- **Requisitos**: Python 3.9 o superior
+- **Instalación**: Ejecuta `install.bat` y selecciona la opción 1
+- **Ejecución**: Usa `run_kairos.bat`
+- **Ventajas**: Mayor estabilidad, mejor documentación, menos problemas de dependencias
 
-1. Clona el repositorio:
-```bash
-git clone https://github.com/yourusername/kairos.git
-cd kairos
-```
+### 2. Ejecución con CrewAI (Original)
 
-2. Instala las dependencias:
-```bash
-pip install -r requirements.txt
-```
+- **Requisitos**: Python 3.10 o superior
+- **Instalación**: Ejecuta `install.bat` y selecciona la opción 2
+- **Ejecución**: Usa `run_kairos.bat`
 
-## Uso
+### 3. Modo Básico (Sin CrewAI/LangChain)
 
-### Método Simple
-Ejecuta el script de inicio:
-```bash
-python run_kairos.py
-```
+- **Requisitos**: Python 3.9 o superior
+- **Ejecución**: Selecciona la opción correspondiente en `run_kairos.bat`
+- **Limitaciones**: No incluye funcionalidad de agentes, solo interfaz de usuario
 
-### Método Alternativo
-Ejecuta directamente la aplicación principal:
-```bash
-python main.py
-```
+## Opciones de Distribución
 
-## Guía Rápida
+Kairos puede distribuirse de varias formas:
 
-1. **Paso 1: FORMAR** - Selecciona una plantilla predefinida o crea tu propio equipo desde cero
-2. **Paso 2: DEFINIR** - Configura los especialistas con roles, objetivos y capacidades específicas
-3. **Paso 3: CONECTAR** - Establece relaciones entre especialistas para definir el flujo de trabajo
-4. **Paso 4: ACTIVAR** - Ejecuta el equipo y observa cómo trabajan juntos
-5. **Paso 5: RESULTADOS** - Revisa y utiliza los resultados generados por el equipo
+### 1. Ejecutable Independiente
 
-## Modos de Interfaz
+- **Creación**: Ejecuta `package.bat` y sigue las instrucciones
+- **Ventajas**: No requiere Python instalado, fácil de distribuir
+- **Opciones**: Puedes empaquetar la versión con LangChain o la versión básica
 
-Kairos ofrece dos modos de interfaz:
+### 2. Instalador para Windows
 
-- **Moderna (Flujo de Trabajo)**: Interfaz horizontal paso a paso, ideal para nuevos usuarios
-- **Tradicional (Pestañas)**: Interfaz basada en pestañas para usuarios avanzados
+- **Requisitos**: NSIS instalado (https://nsis.sourceforge.io/Download)
+- **Creación**: Selecciona la opción correspondiente en el empaquetador
+- **Resultado**: Un archivo .exe que instala Kairos en el sistema
 
-Puedes cambiar entre modos desde el menú "Interfaz".
+### 3. Versión Portable (ZIP)
 
-## Personalización
+- **Creación**: Selecciona la opción correspondiente en el empaquetador
+- **Resultado**: Un archivo ZIP que contiene Kairos listo para usar sin instalación
 
-### Temas
-Kairos incluye temas claro y oscuro (predeterminado). Puedes cambiar el tema desde el menú "Ver" → "Cambiar Tema".
+## Solución de Problemas
 
-### Plantillas Personalizadas
-Puedes crear tus propias plantillas añadiendo archivos YAML en el directorio `config/templates/`.
+### Problemas con CrewAI
 
-## Contribuciones
+Si encuentras errores relacionados con CrewAI, prueba estas soluciones:
 
-Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
+1. **Error de versión de Python**: Asegúrate de usar Python 3.10 o superior
+2. **Error de compilación de tiktoken**: Instala Rust desde https://rustup.rs/
+3. **Otros errores de dependencias**: Usa la versión de LangChain o el modo básico
 
-1. Haz un fork del repositorio
-2. Crea una rama para tu característica (`git checkout -b feature/caracteristica-increible`)
-3. Haz commit de tus cambios (`git commit -m 'Añadir alguna característica increíble'`)
-4. Haz push a la rama (`git push origin feature/caracteristica-increible`)
-5. Abre un Pull Request
+### Problemas con LangChain
 
-## Licencia
+Si encuentras errores relacionados con LangChain:
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+1. **API key no configurada**: Asegúrate de proporcionar una API key de OpenAI válida
+2. **Errores de importación**: Verifica que todas las dependencias estén instaladas correctamente
 
-## Agradecimientos
+## Recursos Adicionales
 
-- CrewAI - El framework que inspiró esta GUI
-- PyQt6 - El framework de GUI utilizado
-- JetBrains - Inspiración para el diseño de la interfaz
+Para más información, consulta los siguientes archivos:
+
+- **README_KAIROS.md**: Documentación detallada de Kairos
+- **langchain_prototype/README.md**: Guía de migración de CrewAI a LangChain
+- **docs/user_guide.md**: Guía de usuario
