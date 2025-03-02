@@ -1,0 +1,172 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 230 20% 13%;
+    --foreground: 210 40% 98%;
+
+    --card: 230 30% 17%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 230 30% 17%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 204 100% 63%;
+    --primary-foreground: 230 20% 9%;
+
+    --secondary: 236 20% 25%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 224 25% 23%;
+    --muted-foreground: 215 20% 70%;
+
+    --accent: 174 75% 53%;
+    --accent-foreground: 230 20% 9%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    /* Nuevos colores de acento */
+    --orange: 24 94% 53%;
+    --orange-foreground: 230 20% 9%;
+    --orange-soft: 28 95% 81%;
+
+    --red: 352 86% 57%;
+    --red-foreground: 210 40% 98%;
+
+    --border: 230 15% 20%;
+    --input: 230 15% 20%;
+    --ring: 204 100% 63%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 230 25% 15%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 204 100% 63%;
+    --sidebar-primary-foreground: 230 20% 9%;
+    --sidebar-accent: 230 30% 19%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 230 20% 22%;
+    --sidebar-ring: 204 100% 63%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+  
+  /* Estilos de scroll personalizados */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-background/30;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted-foreground/50;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-card/80 backdrop-blur-lg border border-secondary/30 shadow-lg;
+  }
+  
+  .nav-item {
+    @apply px-3 py-2 transition-colors rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary/20;
+  }
+  
+  .nav-item-active {
+    @apply bg-primary/10 text-primary;
+  }
+  
+  .step-indicator {
+    @apply flex items-center justify-center w-12 h-12 rounded-full text-foreground/80 border-2 border-muted transition-all duration-300;
+  }
+  
+  .step-indicator-active {
+    @apply border-primary bg-primary text-primary-foreground shadow-[0_0_15px_rgba(56,182,255,0.5)];
+  }
+  
+  .step-indicator-completed {
+    @apply border-primary/70 bg-primary/20 text-primary;
+  }
+  
+  .button-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-5 py-2.5 rounded-lg font-medium transition-all duration-300 shadow-[0_5px_15px_rgba(56,182,255,0.3)] hover:shadow-[0_5px_20px_rgba(56,182,255,0.5)];
+  }
+  
+  .button-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 px-5 py-2.5 rounded-lg font-medium transition-all;
+  }
+  
+  /* Nuevos botones con colores de acento */
+  .button-orange {
+    @apply bg-orange text-orange-foreground hover:bg-orange/90 px-5 py-2.5 rounded-lg font-medium transition-all duration-300 shadow-[0_5px_15px_rgba(249,115,22,0.3)] hover:shadow-[0_5px_20px_rgba(249,115,22,0.5)];
+  }
+  
+  .button-red {
+    @apply bg-red text-red-foreground hover:bg-red/90 px-5 py-2.5 rounded-lg font-medium transition-all duration-300 shadow-[0_5px_15px_rgba(234,56,76,0.3)] hover:shadow-[0_5px_20px_rgba(234,56,76,0.5)];
+  }
+  
+  .agent-card {
+    @apply glass-panel p-5 rounded-xl transition-all duration-300 hover:border-primary/30 hover:shadow-[0_5px_30px_rgba(0,0,0,0.2)];
+  }
+  
+  /* Nuevas variantes de tarjetas de agente */
+  .agent-card-orange {
+    @apply glass-panel p-5 rounded-xl transition-all duration-300 hover:border-orange/30 hover:shadow-[0_5px_30px_rgba(0,0,0,0.2)];
+  }
+  
+  .agent-card-red {
+    @apply glass-panel p-5 rounded-xl transition-all duration-300 hover:border-red/30 hover:shadow-[0_5px_30px_rgba(0,0,0,0.2)];
+  }
+  
+  .input-field {
+    @apply bg-muted/50 border border-border rounded-lg px-4 py-2.5 focus-visible:ring-1 focus-visible:ring-primary focus-visible:outline-none;
+  }
+  
+  .radio-option {
+    @apply flex items-center space-x-2 cursor-pointer;
+  }
+  
+  .radio-circle {
+    @apply w-4 h-4 rounded-full border-2 border-muted-foreground flex items-center justify-center;
+  }
+  
+  .radio-selected {
+    @apply w-2 h-2 rounded-full bg-primary;
+  }
+  
+  /* Nuevas variantes de radio */
+  .radio-selected-orange {
+    @apply w-2 h-2 rounded-full bg-orange;
+  }
+  
+  .radio-selected-red {
+    @apply w-2 h-2 rounded-full bg-red;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

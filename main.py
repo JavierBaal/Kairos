@@ -29,8 +29,7 @@ class MainWindow(QMainWindow):
         # Initialize monitor manager
         self.monitor_manager = get_monitor_manager()
         
-        # Initialize theme - default to dark mode
-        self.dark_mode = True
+# Initialize theme
         self.apply_theme()
         
         # Create menu bar
@@ -147,14 +146,12 @@ class MainWindow(QMainWindow):
     
     def apply_theme(self):
         app = QApplication.instance()
-        app.setPalette(Theme.get_palette(self.dark_mode))
-        app.setStyleSheet(Theme.get_stylesheet(self.dark_mode))
+        Theme.apply_to_app(app)
     
     def toggle_theme(self):
-        self.dark_mode = not self.dark_mode
+        # Ahora usamos un tema único tipo JetBrains
         self.apply_theme()
-        theme_name = "Oscuro" if self.dark_mode else "Claro"
-        self.statusBar.showMessage(f"Cambiado a tema {theme_name}", 3000)
+        self.statusBar.showMessage("Tema JetBrains aplicado", 3000)
         
     def tab_changed(self, index):
         # When switching to Tasks tab, update available agents

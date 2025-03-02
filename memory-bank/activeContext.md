@@ -2,189 +2,89 @@
 
 ## Enfoque Actual
 
-El proyecto Kairos se encuentra en una fase de transición estratégica, pivotando desde un enfoque académico de simulación de debates hacia una herramienta práctica de inteligencia competitiva y marketing. Este pivote responde a necesidades de mercado y oportunidades de monetización.
+Actualmente, el proyecto Kairos está enfocado en las siguientes áreas:
 
-### Prioridades Actuales
+1. **Mejora de la Interfaz de Usuario**
+   - Implementación de un sistema de diseño profesional inspirado en JetBrains
+   - Simplificación del flujo de trabajo en 3 pasos: CONFIGURAR, EJECUTAR, RESULTADOS
+   - Rediseño de componentes UI para mayor coherencia visual
+   - Optimización de la presentación de datos y resultados
 
-1. **Completar Funcionalidad Core**
-   - Finalizar la integración con LangChain
-   - Implementar monitorización completa de agentes
-   - Mejorar la interfaz de usuario para mayor usabilidad
+2. **Integración con LangChain**
+   - Finalización de la adaptación de CrewAI a LangChain
+   - Implementación del monitor de agentes con LangChain
+   - Optimización del rendimiento de ejecución
+   - Mejora de la visualización del progreso
 
-2. **Especialización en Inteligencia Competitiva**
-   - Optimizar la plantilla BlackHat Intelligence
-   - Desarrollar flujos de trabajo específicos para análisis competitivo
-   - Implementar generación de reportes estratégicos
-
-3. **Preparación para Comercialización**
-   - Estructurar ofertas y niveles de producto
-   - Implementar sistema básico de licencias
-   - Preparar materiales de marketing
+3. **Plantilla BlackHat Intelligence**
+   - Refinamiento de la plantilla principal
+   - Mejora de los prompts y configuraciones
+   - Optimización para análisis competitivo
+   - Generación de reportes más accionables
 
 ## Cambios Recientes
 
-### 1. Integración de Monitorización con LangChain (03/02/2025)
+### Nuevo Sistema de Diseño (03/2025)
 
-- Implementación del adaptador `agent_monitor_adapter.py` para conectar LangChain con el sistema de monitorización
-- Creación de la demostración interactiva `langchain_monitor_demo.py`
-- Desarrollo del script `run_langchain_monitor_demo.bat` para ejecutar la demostración
-- Incorporación del panel de monitorización en el paso "ACTIVAR" del flujo de trabajo
+Se ha implementado un sistema de diseño completamente nuevo inspirado en JetBrains IDEs:
 
-### 2. Mejoras de Interfaz de Usuario (03/02/2025)
+- **Paleta de Colores**: Fondos oscuros profesionales con acentos en tonos azul, verde y naranja
+- **Sistema de Grid**: Espaciado consistente basado en múltiplos de 8px
+- **Tipografía**: Sistema tipográfico optimizado para legibilidad con Segoe UI
+- **Componentes**: Biblioteca de componentes con estilos coherentes y estados interactivos
+- **Ergonomía Visual**: Mejor contraste, jerarquía visual clara y feedback visual optimizado
 
-- Optimización de la ergonomía cognitiva en `ui/theme.py`
-- Mejora del contraste y legibilidad de textos
-- Refinamiento de gradientes y elementos visuales
-- Reducción del tamaño de barras de progreso y scrollbars
+### Mejoras de Estabilidad
 
-### 3. Solución de Problemas (03/02/2025)
+- Nuevo script launcher con mejor detección de versiones de Python
+- Corrección de errores de UI en textos y scrolling
+- Optimización de rendimiento en actualizaciones de UI
 
-- Corrección del error de carga de equipos en `config/crews.yaml`
-- Documentación de la solución en `SOLUCION_ERROR_YAML.md`
+### Evolución del Producto
 
-### 4. Pivote Estratégico (02/2025)
+El producto ha continuado su evolución desde simulación de debates hacia inteligencia competitiva:
 
-- Reorientación hacia herramienta de marketing e inteligencia competitiva
-- Desarrollo de la plantilla BlackHat Intelligence
-- Reestructuración del modelo de negocio para JVZoo
+- Mayor énfasis en análisis de mercado y competidores
+- Enfoque en resultados accionables para marketers y analistas
+- Mejora de la visualización de datos competitivos
 
 ## Decisiones Activas
 
-### 1. Simplificación del Flujo de Trabajo
+### Adopción de Sistema de Diseño JetBrains
 
-**Decisión:** Reducir el flujo de trabajo de 5 pasos a 3 pasos esenciales.
+Se ha decidido adoptar un estilo visual inspirado en JetBrains IDEs por las siguientes razones:
 
-**Justificación:**
-- El flujo actual es demasiado complejo para usuarios no técnicos
-- Algunos pasos pueden combinarse para una experiencia más fluida
-- Enfoque en las acciones más importantes: configurar, ejecutar, analizar
+1. **Familiaridad**: Estilo reconocible y respetado por profesionales
+2. **Profesionalismo**: Apariencia sofisticada pero no intimidante
+3. **Ergonomía**: Excelente legibilidad y reducción de fatiga visual
+4. **Consistencia**: Base sólida para la evolución coherente del diseño
 
-**Implementación:**
-- Combinar "FORMAR" y "DEFINIR" en un solo paso "CONFIGURAR"
-- Mantener "ACTIVAR" como "EJECUTAR"
-- Mantener "RESULTADOS" como paso final
-- Eliminar "CONECTAR" como paso separado (integrar en "CONFIGURAR")
+### Prioridades de Diseño
 
-### 2. Priorización de LangChain sobre CrewAI
-
-**Decisión:** Enfocar el desarrollo en la integración con LangChain como framework principal.
-
-**Justificación:**
-- Mayor estabilidad y madurez de LangChain
-- Mejor documentación y comunidad más activa
-- Menos problemas de dependencias
-- Mejor soporte para monitorización y control de costos
-
-**Implementación:**
-- Completar la integración del adaptador de monitorización
-- Desarrollar herramientas específicas para LangChain
-- Mantener compatibilidad básica con CrewAI pero no priorizar nuevas características
-
-### 3. Enfoque en Plantilla BlackHat Intelligence
-
-**Decisión:** Priorizar el desarrollo y optimización de la plantilla BlackHat Intelligence.
-
-**Justificación:**
-- Alineación con el nuevo enfoque de marketing
-- Potencial de monetización más claro
-- Demanda de mercado para herramientas de análisis competitivo
-- Diferenciación respecto a otras herramientas de IA
-
-**Implementación:**
-- Optimizar los roles y flujos de trabajo de la plantilla
-- Desarrollar herramientas específicas para análisis competitivo
-- Crear templates de reportes orientados a acción
-- Implementar ejemplos y casos de uso
-
-## Consideraciones Actuales
-
-### 1. Experiencia de Usuario
-
-- La interfaz actual es funcional pero no óptima para usuarios no técnicos
-- Necesidad de simplificar flujos de trabajo y reducir complejidad
-- Importancia de feedback visual inmediato y guía contextual
-- Oportunidad para mejorar la visualización de relaciones entre agentes
-
-### 2. Rendimiento y Escalabilidad
-
-- Monitorización en tiempo real genera sobrecarga en la UI
-- Necesidad de optimizar actualizaciones para evitar bloqueos
-- Considerar implementación de caché para reducir llamadas a API
-- Evaluar uso de hilos separados para operaciones pesadas
-
-### 3. Monetización y Distribución
-
-- Estructura de precios y niveles de producto pendientes de definir
-- Sistema de licencias básico necesario para la versión comercial
-- Considerar opciones de distribución: instalador, portable, web
-- Evaluar canales de venta: JVZoo, marketplace propio, afiliados
+1. **Coherencia**: Mantener una experiencia visual unificada
+2. **Usabilidad**: Priorizar la facilidad de uso sobre efectos visuales
+3. **Profesionalismo**: Proyectar imagen de herramienta profesional
+4. **Claridad**: Comunicar información compleja de manera accesible
 
 ## Próximos Pasos
 
-### Inmediatos (1-2 semanas)
+### Corto Plazo (1-2 semanas)
 
-1. **Simplificar Flujo de Trabajo UI**
-   - Rediseñar `workflow_panel.py` para implementar el flujo de 3 pasos
-   - Mejorar navegación y feedback visual
-   - Implementar tooltips y ayuda contextual
+- Implementación de iconografía personalizada
+- Refinamiento de la visualización de monitorización
+- Mejora de la presentación de resultados
+- Corrección de errores menores de UI
 
-2. **Completar Monitorización**
-   - Finalizar integración con creación de agentes desde UI
-   - Implementar exportación de datos de monitorización
-   - Añadir visualizaciones básicas de uso y costos
+### Mediano Plazo (1-2 meses)
 
-3. **Optimizar Plantilla BlackHat**
-   - Refinar roles y objetivos de agentes
-   - Mejorar prompts para análisis competitivo
-   - Desarrollar templates de reportes estratégicos
+- Implementación de animaciones sutiles para mejorar la experiencia
+- Adición de visualizaciones de datos para análisis competitivo
+- Mejora de los templates de reportes
+- Optimización para diferentes tamaños de pantalla
 
-### Corto Plazo (2-4 semanas)
+### Largo Plazo (3+ meses)
 
-1. **Sistema de Reportes**
-   - Implementar generación de reportes en diferentes formatos
-   - Desarrollar visualizaciones de insights y oportunidades
-   - Crear templates personalizables para diferentes industrias
-
-2. **Mejoras de UX/UI**
-   - Implementar sistema de notificaciones
-   - Añadir animaciones y transiciones para mejor feedback
-   - Optimizar layout para diferentes tamaños de pantalla
-
-3. **Preparación Comercial**
-   - Implementar sistema básico de licencias
-   - Crear materiales de marketing (screenshots, videos, casos de uso)
-   - Preparar documentación de usuario
-
-### Medio Plazo (1-3 meses)
-
-1. **Expansión de Plantillas**
-   - Desarrollar plantillas adicionales para diferentes casos de uso
-   - Implementar sistema de marketplace para plantillas
-   - Crear editor visual de plantillas
-
-2. **Integración con Servicios Externos**
-   - Añadir soporte para más proveedores de LLM
-   - Implementar herramientas adicionales para agentes
-   - Desarrollar conectores para servicios de marketing
-
-3. **Versión Web/Cloud**
-   - Evaluar factibilidad de versión web
-   - Desarrollar prototipo de interfaz web
-   - Implementar sistema de usuarios y proyectos
-
-## Bloqueos y Desafíos Actuales
-
-1. **Integración UI-LangChain**
-   - Complejidad en la conexión entre UI y ejecución de agentes
-   - Necesidad de mejor manejo de errores y recuperación
-   - Sincronización entre estado de UI y estado real de ejecución
-
-2. **Monitorización Precisa**
-   - Dificultad para obtener métricas precisas de costo y tokens
-   - Latencia en actualizaciones de estado
-   - Sobrecarga de información en ejecuciones complejas
-
-3. **Experiencia de Usuario**
-   - Flujo actual demasiado complejo para usuarios no técnicos
-   - Falta de guía contextual y ayuda integrada
-   - Necesidad de mejor visualización de relaciones entre agentes
+- Desarrollo de un editor visual de plantillas
+- Expansión de la biblioteca de plantillas especializadas
+- Integración con herramientas de marketing
+- Sistema avanzado de exportación de resultados
