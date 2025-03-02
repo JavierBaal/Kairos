@@ -1,11 +1,14 @@
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
     QPushButton, QFrame, QScrollArea, QSizePolicy,
-    QGridLayout, QGroupBox, QSpacerItem, QStackedWidget
+    QGridLayout, QGroupBox, QSpacerItem, QStackedWidget,
+    QSplitter, QDialog, QLineEdit, QFormLayout, QDialogButtonBox, QMessageBox
 )
-from PyQt6.QtCore import Qt, QSize, pyqtSignal
+from PyQt6.QtCore import Qt, QSize, pyqtSignal, pyqtSlot
 from PyQt6.QtGui import QIcon, QPixmap, QColor, QPainter, QPen, QBrush
 from ui.template_panel import TemplatePanel
+from ui.agent_monitor import AgentMonitorPanel
+from langchain_integration.agent_monitor_adapter import get_monitor_manager
 
 class StepIndicator(QWidget):
     """Widget that displays a step in the workflow with number and label"""
@@ -319,9 +322,92 @@ class WorkflowPanel(QWidget):
         self.step3_widget = QWidget()
         # Placeholder for step 3 content
         
-        # Step 4: Execution
+        # Step 4: Execution with Agent Monitoring
         self.step4_widget = QWidget()
-        # Placeholder for step 4 content
+        step4_layout = QVBoxLayout(self.step4_widget)
+        
+        # Title
+        execution_title = QLabel("EJECUCIÓN Y MONITORIZACIÓN")
+        execution_title.setStyleSheet("font-weight: bold; font-size: 16px;")
+        
+        # Splitter for execution controls and monitoring
+        execution_splitter = QSplitter(Qt.Orientation.Vertical)
+        
+        # Top panel - Execution controls
+        execution_controls = QWidget()
+        controls_layout = QVBoxLayout(execution_controls)
+        
+        # Execution settings
+        settings_group = QGroupBox("Configuración de Ejecución")
+        settings_layout = QHBoxLayout(settings_group)
+        
+        # API Key settings
+        api_key_layout = QVBoxLayout()
+        api_key_layout.addWidget(QLabel("API Key:"))
+        api_key_status = QLabel("✓ Configurada")
+        api_key_status.setStyleSheet("color: #4dabf7;")
+        api_key_button = QPushButton("Cambiar API Key")
+        api_key_layout.addWidget(api_key_status)
+        api_key_layout.addWidget(api_key_button)
+        
+        # Cost limit settings
+        cost_limit_layout = QVBoxLayout()
+        cost_limit_layout.addWidget(QLabel("Límite de Costo:"))
+        self.cost_limit_status = QLabel("No establecido")
+        self.cost_limit_button = QPushButton("Establecer Límite")
+        self.cost_limit_button.clicked.connect(self.set_cost_limit)
+        cost_limit_layout.addWidget(self.cost_limit_status)
+        cost_limit_layout.addWidget(self.cost_limit_button)
+        
+        # Model settings
+        model_layout = QVBoxLayout()
+        model_layout.addWidget(QLabel("Modelo:"))
+        model_label = QLabel("GPT-3.5 Turbo")
+        model_button = QPushButton("Cambiar Modelo")
+        model_layout.addWidget(model_label)
+        model_layout.addWidget(model_button)
+        
+        # Add all settings to the settings group
+        settings_layout.addLayout(api_key_layout)
+        settings_layout.addLayout(cost_limit_layout)
+        settings_layout.addLayout(model_layout)
+        
+        # Execution buttons
+        buttons_layout = QHBoxLayout()
+        self.start_button = QPushButton("Iniciar Ejecución")
+        self.start_button.setObjectName("primaryButton")
+        self.start_button.clicked.connect(self.start_execution)
+        self.pause_button = QPushButton("Pausar Todos")
+        self.pause_button.setEnabled(False)
+        self.pause_button.clicked.connect(self.pause_all_agents)
+        self.stop_button = QPushButton("Detener Ejecución")
+        self.stop_button.setEnabled(False)
+        self.stop_button.clicked.connect(self.stop_execution)
+        
+        buttons_layout.addWidget(self.start_button)
+        buttons_layout.addWidget(self.pause_button)
+        buttons_layout.addWidget(self.stop_button)
+        
+        # Add all controls to the top panel
+        controls_layout.addWidget(settings_group)
+        controls_layout.addLayout(buttons_layout)
+        
+        # Bottom panel - Agent monitoring
+        self.agent_monitor_panel = AgentMonitorPanel()
+        
+        # Configure the monitor manager
+        self.monitor_manager = get_monitor_manager()
+        self.monitor_manager.set_ui_panel(self.agent_monitor_panel)
+        
+        # Add panels to splitter
+        execution_splitter.addWidget(execution_controls)
+        execution_splitter.addWidget(self.agent_monitor_panel)
+        execution_splitter.setStretchFactor(0, 1)
+        execution_splitter.setStretchFactor(1, 3)
+        
+        # Add all components to the step layout
+        step4_layout.addWidget(execution_title)
+        step4_layout.addWidget(execution_splitter)
         
         # Step 5: Results
         self.step5_widget = QWidget()
@@ -373,3 +459,149 @@ class WorkflowPanel(QWidget):
         
         # Move to the next step
         self.set_current_step(2)
+    
+    @pyqtSlot()
+    def set_cost_limit(self):
+        """Establecer un límite de costo para la ejecución."""
+        # Crear un diálogo para ingresar el límite
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Establecer Límite de Costo")
+        dialog.setMinimumWidth(300)
+        
+        # Crear layout
+        layout = QFormLayout(dialog)
+        
+        # Crear campo de entrada
+        cost_input = QLineEdit()
+        cost_input.setPlaceholderText("Ejemplo: 2.0")
+        layout.addRow("Límite de costo ($):", cost_input)
+        
+        # Crear botones
+        button_box = QDialogButtonBox(
+            QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel
+        )
+        button_box.accepted.connect(dialog.accept)
+        button_box.rejected.connect(dialog.reject)
+        layout.addRow(button_box)
+        
+        # Mostrar diálogo
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            try:
+                cost_limit = float(cost_input.text())
+                if cost_limit <= 0:
+                    raise ValueError("El límite debe ser mayor que cero")
+                
+                # Establecer límite
+                self.monitor_manager.set_cost_limit(cost_limit)
+                
+                # Actualizar estado
+                self.cost_limit_status.setText(f"${cost_limit:.2f}")
+                self.cost_limit_status.setStyleSheet("color: #4dabf7;")
+                
+                # Mostrar mensaje de confirmación
+                QMessageBox.information(
+                    self,
+                    "Límite Establecido",
+                    f"Se ha establecido un límite de costo de ${cost_limit:.2f}."
+                )
+            except ValueError as e:
+                # Mostrar mensaje de error
+                QMessageBox.warning(
+                    self,
+                    "Error",
+                    f"Por favor, ingrese un número válido mayor que cero. Error: {str(e)}"
+                )
+    
+    @pyqtSlot()
+    def start_execution(self):
+        """Iniciar la ejecución de los agentes."""
+        # En una implementación real, aquí se crearían y ejecutarían los agentes
+        # Para esta demostración, solo simularemos la actividad
+        
+        # Cambiar estado de los botones
+        self.start_button.setEnabled(False)
+        self.pause_button.setEnabled(True)
+        self.stop_button.setEnabled(True)
+        
+        # Simular agentes para la demostración
+        self.simulate_agents()
+        
+        # Mostrar mensaje
+        QMessageBox.information(
+            self,
+            "Ejecución Iniciada",
+            "La ejecución de los agentes ha comenzado. Puedes monitorizar su progreso en el panel inferior."
+        )
+    
+    def simulate_agents(self):
+        """Simular agentes para la demostración."""
+        # Añadir algunos agentes de ejemplo al panel de monitorización
+        self.agent_monitor_panel.add_agent_monitor(
+            "researcher", "Investigador de Mercado", "Analista de Datos"
+        )
+        self.agent_monitor_panel.add_agent_monitor(
+            "writer", "Redactor de Contenido", "Escritor Creativo"
+        )
+        self.agent_monitor_panel.add_agent_monitor(
+            "analyst", "Estratega de Marketing", "Planificador"
+        )
+        
+        # Simular algunas métricas iniciales
+        self.agent_monitor_panel.update_agent_cost("researcher", 0.05)
+        self.agent_monitor_panel.update_agent_tokens("researcher", 250)
+        self.agent_monitor_panel.update_agent_progress("researcher", 10)
+        self.agent_monitor_panel.update_agent_status("researcher", "Iniciando investigación...")
+        
+        self.agent_monitor_panel.update_agent_cost("writer", 0.03)
+        self.agent_monitor_panel.update_agent_tokens("writer", 150)
+        self.agent_monitor_panel.update_agent_progress("writer", 5)
+        self.agent_monitor_panel.update_agent_status("writer", "Preparando estructura...")
+        
+        self.agent_monitor_panel.update_agent_cost("analyst", 0.02)
+        self.agent_monitor_panel.update_agent_tokens("analyst", 100)
+        self.agent_monitor_panel.update_agent_progress("analyst", 3)
+        self.agent_monitor_panel.update_agent_status("analyst", "Analizando datos iniciales...")
+    
+    @pyqtSlot()
+    def pause_all_agents(self):
+        """Pausar todos los agentes en ejecución."""
+        # En una implementación real, aquí se pausarían los agentes
+        # Para esta demostración, solo actualizaremos el estado
+        
+        # Actualizar estado de los agentes
+        for agent_id in self.agent_monitor_panel.agent_monitors:
+            self.agent_monitor_panel.update_agent_status(agent_id, "Pausado")
+        
+        # Cambiar texto del botón
+        if self.pause_button.text() == "Pausar Todos":
+            self.pause_button.setText("Reanudar Todos")
+        else:
+            self.pause_button.setText("Pausar Todos")
+            # Actualizar estado de los agentes al reanudar
+            self.agent_monitor_panel.update_agent_status("researcher", "Continuando investigación...")
+            self.agent_monitor_panel.update_agent_status("writer", "Redactando contenido...")
+            self.agent_monitor_panel.update_agent_status("analyst", "Analizando tendencias...")
+    
+    @pyqtSlot()
+    def stop_execution(self):
+        """Detener la ejecución de los agentes."""
+        # En una implementación real, aquí se detendrían los agentes
+        # Para esta demostración, solo actualizaremos el estado
+        
+        # Actualizar estado de los agentes
+        for agent_id in self.agent_monitor_panel.agent_monitors:
+            self.agent_monitor_panel.update_agent_status(agent_id, "Detenido")
+            self.agent_monitor_panel.update_agent_progress(agent_id, 100)
+        
+        # Cambiar estado de los botones
+        self.start_button.setEnabled(True)
+        self.pause_button.setEnabled(False)
+        self.stop_button.setEnabled(False)
+        self.pause_button.setText("Pausar Todos")
+        
+        # Mostrar mensaje
+        QMessageBox.information(
+            self,
+            "Ejecución Detenida",
+            "La ejecución de los agentes ha sido detenida."
+        )

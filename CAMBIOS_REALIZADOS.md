@@ -113,19 +113,76 @@ Se ha implementado un nuevo diseño visual y sistema de monitorización de agent
    - Actualización en tiempo real de costos, tokens y progreso
    - Interfaz completamente funcional con el nuevo tema mixto
 
+## Actualización (03/02/2025): Integración de Monitorización con LangChain
+
+Se ha implementado la integración del sistema de monitorización de agentes con LangChain:
+
+1. **Adaptador de Monitorización para LangChain**:
+   - Nuevo módulo `langchain_integration/agent_monitor_adapter.py` que conecta LangChain con el sistema de monitorización
+   - Interceptación de llamadas a la API para registrar tokens, costos y tiempos de respuesta
+   - Monitorización en tiempo real de agentes de LangChain
+   - Sistema de alertas y límites de costo para controlar el gasto en APIs
+
+2. **Clases Principales Implementadas**:
+   - `AgentMonitorCallback`: Callback handler para capturar métricas de LangChain
+   - `MonitoredAgentExecutor`: Wrapper para AgentExecutor que añade monitorización
+   - `MonitoredChatOpenAI`: Versión monitorizada de ChatOpenAI
+   - `AgentMonitorManager`: Gestor para monitorizar múltiples agentes y actualizar la UI
+
+3. **Funcionalidades Clave**:
+   - Registro detallado de tokens de entrada/salida y costos asociados
+   - Cálculo preciso de costos basado en los precios actuales de los modelos
+   - Capacidad para establecer límites de costo y pausar agentes automáticamente
+   - Visualización en tiempo real del progreso y estado de los agentes
+
+4. **Demostración de Integración**:
+   - Nuevo script `examples/langchain_monitor_demo.py` que muestra la integración en acción
+   - Simulación de múltiples agentes trabajando en paralelo con monitorización
+   - Script batch `run_langchain_monitor_demo.bat` para ejecutar la demostración fácilmente
+
+5. **Mejoras en la Ergonomía Cognitiva**:
+   - Barras de progreso más finas (6px) para mejorar el contraste visual
+   - Scrollbars más delgados (9px) para una apariencia más elegante
+   - Elementos de interfaz más ligeros que permiten destacar mejor el contenido
+   - Mayor espacio visual para los elementos importantes
+
+## Actualización (03/02/2025): Integración de Monitorización en la Interfaz Principal
+
+Se ha completado la integración del sistema de monitorización de agentes en la interfaz principal de Kairos:
+
+1. **Panel de Monitorización en la Interfaz Principal**:
+   - Integración del panel de monitorización en el paso "ACTIVAR" del flujo de trabajo
+   - Controles para iniciar, pausar y detener la ejecución de agentes
+   - Configuración de límites de costo directamente desde la interfaz
+
+2. **Configuración de Ejecución**:
+   - Diálogo para establecer límites de costo personalizados
+   - Visualización del estado de la API Key y modelo seleccionado
+   - Interfaz unificada para gestionar todos los aspectos de la ejecución
+
+3. **Integración con LangChain**:
+   - Conexión del adaptador de monitorización con la interfaz principal
+   - Preparación para monitorizar agentes creados desde la UI
+   - Estructura para futuras extensiones y mejoras
+
+4. **Script de Ejecución**:
+   - Nuevo script `run_kairos_with_monitoring.bat` para ejecutar Kairos con la funcionalidad de monitorización
+
 ## Próximos Pasos Recomendados
 
-1. **Completar la migración a LangChain**:
-   - Integrar completamente LangChain en la interfaz de usuario
-   - Implementar más herramientas específicas para Kairos
-   - Conectar el sistema de monitorización con los agentes reales de LangChain
+1. **Completar la integración con LangChain**:
+   - Implementar la creación de agentes monitorizados desde la interfaz principal
+   - Conectar los agentes creados en la UI con el sistema de monitorización
+   - Añadir soporte para diferentes modelos de lenguaje
 
 2. **Mejorar la Interfaz de Usuario**:
    - Implementar arrastrar y soltar para la creación de equipos de agentes
    - Añadir más visualizaciones y gráficos para el análisis de resultados
    - Completar la integración del tema mixto en todos los componentes
+   - Mejorar la experiencia de usuario en el panel de monitorización
 
-3. **Considerar una Versión Web**:
-   - Desarrollar una versión web para mayor accesibilidad
-   - Implementar una API para acceder a Kairos desde cualquier dispositivo
-   - Adaptar el sistema de monitorización para entornos web
+3. **Expandir la Monitorización**:
+   - Añadir exportación de datos de monitorización a CSV/JSON
+   - Implementar gráficos históricos de uso y costos
+   - Crear un panel de administración para gestionar múltiples proyectos
+   - Añadir alertas y notificaciones para eventos importantes

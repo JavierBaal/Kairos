@@ -52,13 +52,13 @@ class Theme:
         },
         "mixed": {
             # Base colors - Dark backgrounds with light content areas
-            "background": "#1a1a2e",
-            "background_secondary": "#f7f7f7",
-            "background_tertiary": "#e0e0e0",
-            "text": "#2c2c2c",
-            "text_secondary": "#6f737a",
+            "background": "#16162e",  # Más oscuro para mejor contraste
+            "background_secondary": "#f9f9f9",  # Más claro para mejor legibilidad
+            "background_tertiary": "#e8e8e8",
+            "text": "#202020",  # Más oscuro para mejor legibilidad
+            "text_secondary": "#5a5a68",  # Más oscuro para mejor contraste
             "text_on_dark": "#ffffff",
-            "text_secondary_on_dark": "#c0c0c0",
+            "text_secondary_on_dark": "#d0d0d8",  # Más claro para mejor legibilidad
 
             # Accent colors - Vibrant gradients
             "primary": "#6a3de8",
@@ -78,11 +78,11 @@ class Theme:
             
             # UI elements
             "border": "#e0e0e0",
-            "border_dark": "#444466",
+            "border_dark": "#383860",  # Más oscuro para mejor contraste
             "surface_light": "#ffffff",
-            "surface_dark": "#242440",
+            "surface_dark": "#1e1e38",  # Más oscuro para mejor contraste
             "hover_light": "#f0f0f0",
-            "hover_dark": "#2d2d50",
+            "hover_dark": "#2a2a4d",  # Ajustado para mejor contraste
             "selected": "#6a3de8",
         }
     }
@@ -107,12 +107,12 @@ class Theme:
             "secondary_button": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ff5a5f, stop:1 #ff8f59)",
             "tertiary_button": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #00c2a8, stop:1 #5aaa4f)",
             
-            # Background gradients
-            "app_background": "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1a1a2e, stop:1 #242440)",
-            "main_panel_light": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #f0f0f0)",
-            "main_panel_dark": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #242440, stop:1 #1a1a2e)",
+            # Background gradients - Más sutiles y elegantes
+            "app_background": "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #16162e, stop:1 #1e1e38)",
+            "main_panel_light": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #ffffff, stop:1 #f5f5f5)",
+            "main_panel_dark": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #1e1e38, stop:1 #16162e)",
             
-            # Accent gradients
+            # Accent gradients - Más suaves para mejor ergonomía visual
             "accent_purple_blue": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #6a3de8, stop:1 #3d8aff)",
             "accent_coral_orange": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #ff5a5f, stop:1 #ff8f59)",
             "accent_teal_green": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #00c2a8, stop:1 #5aaa4f)",
@@ -174,9 +174,10 @@ class Theme:
             return f"""
                 /* General Application Style */
                 QWidget {{
-                    font-family: 'JetBrains Mono', 'Segoe UI', 'Arial';
+                    font-family: 'Segoe UI', 'Arial', sans-serif;
                     font-size: 14px;
                     color: {colors["text"]};
+                    letter-spacing: 0.2px;
                 }}
 
                 QMainWindow {{
@@ -190,7 +191,8 @@ class Theme:
                     border: none;
                     border-radius: 6px;
                     padding: 10px 20px;
-                    font-weight: 500;
+                    font-weight: 600;
+                    letter-spacing: 0.5px;
                 }}
 
                 QPushButton:hover {{
@@ -274,8 +276,9 @@ class Theme:
                     color: {colors["text"]};
                     border: 1px solid {colors["border"]};
                     border-radius: 8px;
-                    padding: 10px;
+                    padding: 12px;
                     selection-background-color: {colors["primary"]};
+                    font-size: 15px;
                 }}
 
                 QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus {{
@@ -426,18 +429,18 @@ class Theme:
                     border: none;
                 }}
 
-                /* Scrollbar styling */
+                /* Scrollbar styling - Más delgados para mejor ergonomía */
                 QScrollBar:vertical {{
                     background-color: transparent;
-                    width: 9px;
+                    width: 6px;
                     margin: 0;
                 }}
 
                 QScrollBar::handle:vertical {{
                     background: {gradients["accent_purple_blue"]};
                     min-height: 20px;
-                    border-radius: 4px;
-                    margin: 2px;
+                    border-radius: 3px;
+                    margin: 1px;
                 }}
 
                 QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
@@ -446,15 +449,15 @@ class Theme:
 
                 QScrollBar:horizontal {{
                     background-color: transparent;
-                    height: 9px;
+                    height: 6px;
                     margin: 0;
                 }}
 
                 QScrollBar::handle:horizontal {{
                     background: {gradients["accent_purple_blue"]};
                     min-width: 20px;
-                    border-radius: 4px;
-                    margin: 2px;
+                    border-radius: 3px;
+                    margin: 1px;
                 }}
 
                 QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal {{
@@ -535,78 +538,82 @@ class Theme:
                     font-size: 14px;
                 }}
 
-                /* Agent monitoring components */
+                /* Agent monitoring components - Mejorados para mejor legibilidad */
                 QWidget#agentMonitor {{
                     background: {gradients["main_panel_dark"]};
                     border-radius: 12px;
-                    padding: 10px;
+                    padding: 15px;
                 }}
 
                 QLabel#agentName {{
                     color: white;
                     font-weight: bold;
-                    font-size: 16px;
+                    font-size: 18px;
+                    letter-spacing: 0.5px;
                 }}
 
                 QLabel#agentRole {{
                     color: {colors["text_secondary_on_dark"]};
                     font-style: italic;
+                    font-size: 15px;
                 }}
 
-                QLabel#costLabel {{
-                    color: white;
+                QLabel#costLabel, QLabel#tokenLabel, QLabel#progressLabel, QLabel#statusLabel {{
+                    color: {colors["text_secondary_on_dark"]};
                     font-size: 14px;
+                    font-weight: 500;
                 }}
 
-                QLabel#costValue {{
+                QLabel#costValue, QLabel#tokenValue, QLabel#progressValue, QLabel#statusValue {{
                     color: white;
                     font-weight: bold;
-                    font-size: 18px;
+                    font-size: 16px;
                 }}
 
-                /* Progress bar styling - Thinner bars as requested */
+                /* Progress bar styling - Más delgadas para mejor contraste visual */
                 QProgressBar {{
                     border: none;
-                    border-radius: 3px;
+                    border-radius: 2px;
                     background-color: rgba(255, 255, 255, 0.1);
-                    height: 6px;
+                    height: 4px;
                     text-align: center;
                 }}
 
                 QProgressBar::chunk {{
                     background: {gradients["accent_coral_orange"]};
-                    border-radius: 3px;
+                    border-radius: 2px;
                 }}
 
                 /* Cost monitoring panel */
                 QWidget#costPanel {{
                     background: {gradients["main_panel_dark"]};
                     border-radius: 12px;
-                    padding: 15px;
+                    padding: 20px;
                 }}
 
                 QLabel#costTitle {{
                     color: white;
                     font-weight: bold;
-                    font-size: 18px;
+                    font-size: 20px;
+                    letter-spacing: 0.5px;
                 }}
 
                 QLabel#costTotal {{
                     color: white;
                     font-weight: bold;
-                    font-size: 24px;
+                    font-size: 28px;
                 }}
 
                 QLabel#tokenCount {{
                     color: {colors["text_secondary_on_dark"]};
-                    font-size: 14px;
+                    font-size: 15px;
                 }}
 
                 /* Charts and visualizations */
                 QWidget#chartWidget {{
                     background-color: {colors["surface_dark"]};
                     border-radius: 12px;
-                    padding: 10px;
+                    padding: 15px;
                 }}
 
                 /* Drag and drop areas */
@@ -614,7 +621,7 @@ class Theme:
                     background-color: rgba(255, 255, 255, 0.05);
                     border: 1px dashed rgba(255, 255, 255, 0.2);
                     border-radius: 12px;
-                    padding: 20px;
+                    padding: 30px;
                 }}
 
                 QWidget#dropArea:hover {{
@@ -625,6 +632,7 @@ class Theme:
                 QLabel#dropLabel {{
                     color: {colors["text_secondary_on_dark"]};
                     font-size: 16px;
+                    font-style: italic;
                     qproperty-alignment: AlignCenter;
                 }}
             """
