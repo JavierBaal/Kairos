@@ -1,4 +1,4 @@
-from PyQt6.QtGui import QPalette, QColor
+from PyQt6.QtGui import QPalette, QColor, QFont, QGradient, QLinearGradient
 from PyQt6.QtCore import Qt
 
 class Theme:

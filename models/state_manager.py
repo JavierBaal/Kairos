@@ -33,11 +33,11 @@ class StateManager:
         }
         self._observers = {}
     
-    def get_state(self, key: str) -> Any:
+    def get_state(self, key: str, default: Any = None) -> Any:
         """Obtener un valor del estado."""
         if key in self._state:
             return self._state[key]
-        return None
+        return default
     
     def set_state(self, key: str, value: Any) -> None:
         """Establecer un valor en el estado y notificar a los observadores."""
