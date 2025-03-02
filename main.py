@@ -10,14 +10,23 @@ from ui.task_panel import TaskPanel
 from ui.agent_panel import AgentPanel
 from ui.crew_panel import CrewPanel
 from ui.workflow_panel import WorkflowPanel
+from ui.monitor_panel import MonitorPanel  # Nuevo panel de monitorización
 from ui.theme import Theme
 from models.template_model import TemplateModel
+from models.state_manager import get_state_manager  # Gestor de estado centralizado
+from langchain_integration.agent_monitor_adapter import get_monitor_manager  # Gestor de monitorización
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Kairos Intelligence System")
         self.setMinimumSize(1200, 700)  # Increased size for horizontal layout
+        
+        # Initialize state manager
+        self.state_manager = get_state_manager()
+        
+        # Initialize monitor manager
+        self.monitor_manager = get_monitor_manager()
         
         # Initialize theme - default to dark mode
         self.dark_mode = True
@@ -41,11 +50,13 @@ class MainWindow(QMainWindow):
         self.agent_panel = AgentPanel()
         self.task_panel = TaskPanel()
         self.crew_panel = CrewPanel()
+        self.monitor_panel = MonitorPanel()  # Nuevo panel de monitorización
         
         # Add tabs with icons
         self.tabs.addTab(self.agent_panel, self.get_icon("person"), "Especialistas")
         self.tabs.addTab(self.task_panel, self.get_icon("task"), "Objetivos")
         self.tabs.addTab(self.crew_panel, self.get_icon("group"), "Equipos")
+        self.tabs.addTab(self.monitor_panel, self.get_icon("monitor"), "Monitorización")  # Nueva pestaña
         
         # Connect signals for traditional interface
         self.tabs.currentChanged.connect(self.tab_changed)
@@ -60,9 +71,15 @@ class MainWindow(QMainWindow):
         # Default to new workflow interface
         self.stacked_widget.setCurrentIndex(0)
         
+        # Connect monitor manager to UI
+        self.monitor_manager.set_ui_panel(self.monitor_panel)
+        
+        # Register state observers
+        self.register_state_observers()
+        
         # Show welcome message
         self.statusBar.showMessage("Bienvenido a Kairos Intelligence System", 5000)
-    
+
     def get_icon(self, name):
         # Use system icons when available
         if name == "person":
@@ -75,8 +92,27 @@ class MainWindow(QMainWindow):
             return self.style().standardIcon(QStyle.StandardPixmap.SP_DialogResetButton)
         elif name == "interface":
             return self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon)
+        elif name == "monitor":
+            return self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon)
         return QIcon()
     
+    def register_state_observers(self):
+        """Registrar observadores para cambios de estado"""
+        # Actualizar panel de agentes cuando cambian los agentes
+        self.state_manager.register_observer("agents", self.agent_panel.update_from_state)
+        
+        # Actualizar panel de tareas cuando cambian las tareas o los agentes
+        self.state_manager.register_observer("tasks", self.task_panel.update_from_state)
+        self.state_manager.register_observer("agents", self.task_panel.update_agents_from_state)
+        
+        # Actualizar panel de equipos cuando cambian los equipos, tareas o agentes
+        self.state_manager.register_observer("crews", self.crew_panel.update_from_state)
+        self.state_manager.register_observer("tasks", self.crew_panel.update_tasks_from_state)
+        self.state_manager.register_observer("agents", self.crew_panel.update_agents_from_state)
+        
+        # Actualizar panel de monitorización cuando cambia el estado de monitorización
+        self.state_manager.register_observer("monitoring", self.monitor_panel.update_from_state)
+
     def create_menu_bar(self):
         menubar = self.menuBar()
         
