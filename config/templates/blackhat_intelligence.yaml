@@ -1,0 +1,118 @@
+# BlackHat Intelligence System - Plantilla Premium
+# Configuración para análisis competitivo y espionaje de mercado
+
+name: "Equipo de Inteligencia Competitiva BlackHat"
+description: "Equipo especializado en análisis competitivo, espionaje de mercado y descubrimiento de oportunidades ocultas"
+process: "hierarchical"
+verbose: true
+
+# Especialistas predefinidos
+specialists:
+  analista_mercado:
+    name: "Analista de Mercado"
+    role: "Experto en análisis de tendencias y oportunidades de mercado"
+    goal: "Identificar patrones y tendencias emergentes en el mercado objetivo"
+    backstory: "Analista con 15 años de experiencia en investigación de mercados y big data. He trabajado para Fortune 500 identificando oportunidades antes que la competencia."
+    tools:
+      - "SerperDevTool"
+      - "WebBrowserTool"
+    verbose: true
+    allow_delegation: true
+
+  investigador_competitivo:
+    name: "Investigador Competitivo"
+    role: "Especialista en extraer información estratégica de competidores"
+    goal: "Descubrir estrategias ocultas y vulnerabilidades de la competencia"
+    backstory: "Ex-consultor de inteligencia competitiva para empresas de tecnología. Mi especialidad es descubrir lo que las empresas intentan ocultar y anticipar sus movimientos."
+    tools:
+      - "SerperDevTool"
+      - "WebBrowserTool"
+    verbose: true
+    allow_delegation: true
+
+  estratega:
+    name: "Estratega"
+    role: "Experto en desarrollo de estrategias basadas en datos"
+    goal: "Crear planes de acción efectivos basados en insights competitivos"
+    backstory: "Estratega con experiencia en consultoría de negocios para startups y empresas establecidas. Mi enfoque combina datos duros con intuición de mercado."
+    tools:
+      - "FileReadTool"
+      - "FileWriteTool"
+    verbose: true
+    allow_delegation: true
+
+  cazador_oportunidades:
+    name: "Cazador de Oportunidades"
+    role: "Especialista en identificar gaps de mercado y oportunidades"
+    goal: "Descubrir nichos inexplorados y oportunidades de crecimiento"
+    backstory: "Emprendedor serial con historial de éxito en nuevos mercados. He lanzado 5 startups exitosas identificando oportunidades que otros pasaron por alto."
+    tools:
+      - "SerperDevTool"
+      - "WebBrowserTool"
+    verbose: true
+    allow_delegation: true
+
+# Objetivos predefinidos
+objectives:
+  analisis_competidores:
+    name: "Análisis de Competidores"
+    description: "Identificar y analizar los principales competidores en el mercado objetivo. Descubrir sus fortalezas, debilidades, estrategias de marketing, precios y posicionamiento."
+    expected_output: "Informe detallado de fortalezas, debilidades y estrategias de competidores, incluyendo análisis DAFO y recomendaciones para contrarrestar sus ventajas."
+    agent: "Investigador Competitivo"
+    output_file: "competitor_analysis.md"
+
+  analisis_tendencias:
+    name: "Análisis de Tendencias"
+    description: "Identificar tendencias emergentes y patrones en el mercado. Analizar cambios en comportamiento de consumidores, nuevas tecnologías y factores externos que afectan al mercado."
+    expected_output: "Informe de tendencias actuales y predicciones a corto plazo, con gráficos y datos cuantitativos que respalden las conclusiones."
+    agent: "Analista de Mercado"
+    output_file: "market_trends.md"
+
+  identificacion_oportunidades:
+    name: "Identificación de Oportunidades"
+    description: "Descubrir nichos y oportunidades basadas en los análisis previos. Identificar gaps de mercado, necesidades no satisfechas y áreas de potencial crecimiento."
+    expected_output: "Lista priorizada de oportunidades de mercado con potencial, incluyendo tamaño estimado, barreras de entrada y tiempo de implementación."
+    agent: "Cazador de Oportunidades"
+    output_file: "opportunities.md"
+
+  plan_estrategico:
+    name: "Plan Estratégico"
+    description: "Desarrollar estrategias para capitalizar las oportunidades identificadas. Crear un plan de acción detallado con tácticas específicas y métricas de éxito."
+    expected_output: "Plan estratégico detallado con acciones concretas, timeline de implementación y KPIs para medir el éxito."
+    agent: "Estratega"
+    output_file: "strategic_plan.md"
+
+# Configuración de flujo de trabajo
+workflow:
+  # Definición de relaciones entre especialistas
+  relationships:
+    - from: "Analista de Mercado"
+      to: "Cazador de Oportunidades"
+      description: "Proporciona análisis de tendencias para identificar oportunidades"
+    
+    - from: "Investigador Competitivo"
+      to: "Estratega"
+      description: "Proporciona insights sobre competidores para desarrollar estrategias"
+    
+    - from: "Cazador de Oportunidades"
+      to: "Estratega"
+      description: "Proporciona oportunidades identificadas para planificación estratégica"
+
+  # Secuencia de ejecución para proceso jerárquico
+  sequence:
+    - "Analista de Mercado"
+    - "Investigador Competitivo"
+    - "Cazador de Oportunidades"
+    - "Estratega"
+
+# Instrucciones de uso
+instructions: |
+  Para utilizar esta plantilla de Inteligencia Competitiva BlackHat:
+  
+  1. Personaliza el mercado objetivo en la descripción de cada objetivo
+  2. Ajusta los nombres de competidores específicos si es necesario
+  3. Ejecuta el equipo completo para un análisis exhaustivo
+  4. Revisa los archivos de salida en la carpeta de resultados
+  
+  Esta plantilla está diseñada para descubrir información estratégica sobre competidores
+  y mercados que normalmente pasaría desapercibida con métodos de análisis tradicionales.

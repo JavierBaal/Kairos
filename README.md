@@ -1,82 +1,106 @@
-# CrewAI GUI
+# Kairos Intelligence System
 
 <p align="center">
-  <img src="docs/images/logo.png" alt="CrewAI GUI Logo" width="200"/>
+  <img src="docs/images/logo.png" alt="Kairos Intelligence System Logo" width="200"/>
 </p>
 
-## Overview
+## Descripción
 
-CrewAI GUI is a graphical user interface for the [CrewAI framework](https://github.com/joaomdmoura/crewAI), designed to simplify the creation, management, and execution of AI agent crews. This tool allows users to visually define agents, tasks, and workflows without writing code, making the powerful CrewAI framework accessible to a wider audience.
+Kairos Intelligence System es una plataforma avanzada para la creación, gestión y ejecución de equipos de agentes de IA. Permite a usuarios sin conocimientos técnicos aprovechar el poder de los sistemas multiagente a través de una interfaz gráfica intuitiva y plantillas predefinidas para casos de uso específicos.
 
-## Features
+## Características Principales
 
-- **Agent Management**: Create, edit, and delete AI agents with customizable roles, goals, and backstories
-- **Task Management**: Define tasks with descriptions, expected outputs, and assign them to specific agents
-- **Crew Configuration**: Organize agents and tasks into crews with different process types
-- **Real-time Execution**: Run your crews directly from the GUI and see the output in real-time
-- **Configuration Export**: Save agent, task, and crew configurations as YAML files compatible with CrewAI
-- **Intuitive Interface**: User-friendly tabbed interface for managing different aspects of your AI crews
+- **Interfaz de Flujo de Trabajo Horizontal**: Diseñada para usuarios no técnicos, con un proceso paso a paso intuitivo
+- **Plantillas Premium Predefinidas**: Configuraciones listas para usar en casos de uso específicos
+- **Tema Profesional Estilo JetBrains**: Interfaz moderna con tema oscuro por defecto
+- **Gestión Visual de Equipos**: Crea y conecta especialistas de IA visualmente
+- **Compatibilidad con CrewAI**: Aprovecha el poder del framework CrewAI sin escribir código
 
-## Screenshots
+## Plantillas Incluidas
 
-<p align="center">
-  <img src="docs/images/screenshot_agents.png" alt="Agents Tab" width="45%"/>
-  <img src="docs/images/screenshot_crews.png" alt="Crews Tab" width="45%"/>
-</p>
+### BlackHat Intelligence System
+Equipo especializado en análisis competitivo y espionaje de mercado, que incluye:
+- Analista de Mercado
+- Investigador Competitivo
+- Estratega
+- Cazador de Oportunidades
 
-## Installation
+Ideal para descubrir oportunidades de mercado ocultas y analizar competidores.
 
-### Prerequisites
+## Requisitos
 
-- Python 3.8 or higher
+- Python 3.8 o superior
 - PyQt6
-- CrewAI and its dependencies
+- CrewAI y sus dependencias
 
-### Setup
+## Instalación
 
-1. Clone the repository:
+1. Clona el repositorio:
 ```bash
-git clone https://github.com/yourusername/CrewAI-GUI.git
-cd CrewAI-GUI
-
-CrewAI-GUI/
-├── config/                 # Configuration files directory
-│   ├── agents.yaml         # Saved agent configurations
-│   ├── tasks.yaml          # Saved task configurations
-│   └── crews.yaml          # Saved crew configurations
-├── docs/                   # Documentation
-│   └── images/             # Screenshots and images
-├── models/                 # Data models
-│   ├── agent_model.py      # Agent data structure
-│   ├── task_model.py       # Task data structure
-│   └── crew_model.py       # Crew data structure
-├── scripts/                # Generated scripts for execution
-├── ui/                     # User interface components
-│   ├── agent_panel.py      # Agent management panel
-│   ├── task_panel.py       # Task management panel
-│   ├── crew_panel.py       # Crew management panel
-│   └── execution_dialog.py # Execution output dialog
-├── .gitignore              # Git ignore file
-├── LICENSE                 # License file
-├── main.py                 # Application entry point
-├── README.md               # Project documentation
-└── requirements.txt        # Python dependencies
-```plaintext
+git clone https://github.com/yourusername/kairos.git
+cd kairos
 ```
 
-## Contributing
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch ( git checkout -b feature/amazing-feature )
-3. Commit your changes ( git commit -m 'Add some amazing feature' )
-4. Push to the branch ( git push origin feature/amazing-feature )
-5. Open a Pull Request
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-- CrewAI - The framework that inspired this GUI
-- PyQt6 - The GUI framework used
-
+2. Instala las dependencias:
+```bash
+pip install -r requirements.txt
 ```
+
+## Uso
+
+### Método Simple
+Ejecuta el script de inicio:
+```bash
+python run_kairos.py
+```
+
+### Método Alternativo
+Ejecuta directamente la aplicación principal:
+```bash
+python main.py
+```
+
+## Guía Rápida
+
+1. **Paso 1: FORMAR** - Selecciona una plantilla predefinida o crea tu propio equipo desde cero
+2. **Paso 2: DEFINIR** - Configura los especialistas con roles, objetivos y capacidades específicas
+3. **Paso 3: CONECTAR** - Establece relaciones entre especialistas para definir el flujo de trabajo
+4. **Paso 4: ACTIVAR** - Ejecuta el equipo y observa cómo trabajan juntos
+5. **Paso 5: RESULTADOS** - Revisa y utiliza los resultados generados por el equipo
+
+## Modos de Interfaz
+
+Kairos ofrece dos modos de interfaz:
+
+- **Moderna (Flujo de Trabajo)**: Interfaz horizontal paso a paso, ideal para nuevos usuarios
+- **Tradicional (Pestañas)**: Interfaz basada en pestañas para usuarios avanzados
+
+Puedes cambiar entre modos desde el menú "Interfaz".
+
+## Personalización
+
+### Temas
+Kairos incluye temas claro y oscuro (predeterminado). Puedes cambiar el tema desde el menú "Ver" → "Cambiar Tema".
+
+### Plantillas Personalizadas
+Puedes crear tus propias plantillas añadiendo archivos YAML en el directorio `config/templates/`.
+
+## Contribuciones
+
+Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
+
+1. Haz un fork del repositorio
+2. Crea una rama para tu característica (`git checkout -b feature/caracteristica-increible`)
+3. Haz commit de tus cambios (`git commit -m 'Añadir alguna característica increíble'`)
+4. Haz push a la rama (`git push origin feature/caracteristica-increible`)
+5. Abre un Pull Request
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia MIT - ver el archivo LICENSE para más detalles.
+
+## Agradecimientos
+
+- CrewAI - El framework que inspiró esta GUI
+- PyQt6 - El framework de GUI utilizado
+- JetBrains - Inspiración para el diseño de la interfaz
