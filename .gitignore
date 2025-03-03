@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -16,44 +15,67 @@ lib64/
 parts/
 sdist/
 var/
+wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-.venv/
-.env/
+
+# Entorno virtual
 venv/
 ENV/
-.venv
+env/
 .env
-venv
-ENV
 
-# PyInstaller
-dist/
-build/
-*.spec
-portable/
-
-# IDE
+# PyCharm
 .idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store
+*.iml
+*.iws
+.idea_modules/
 
-# Logs
+# VSCode
+.vscode/
+*.code-workspace
+.history/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs y diagnósticos
 *.log
 logs/
-log/
-
-# Resultados
-results/
-
-# Archivos generados
-scripts/*.py
-!scripts/__init__.py
-
-# Archivos temporales
+run_scripts/diagnostic_report.json
+diagnostic_reports/
+temp/
+.temp/
 *.tmp
+
+# Archivos de caché de PyQt
+*.qmlc
+*.jsc
+.qmake.stash
+.qt/
+
+# Archivos de proyecto específicos
+kairos_config.json
+user_settings.json
+.kairos/
+
+# Backups
 *.bak
 *~
+*.swp
+*.orig
+
+# Archivos privados y secretos
+secrets/
+.env
+.secret
+credentials.json
+api_key.txt
+
+# Resultados y outputs
+output/
+results/
+exports/

@@ -1,89 +1,73 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
-"""
-Script para ejecutar Kairos con la interfaz simplificada.
-Este script carga el panel de flujo de trabajo simplificado en lugar del original.
-"""
-
-import sys
 import os
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QLabel, QStatusBar
-from PyQt6.QtCore import Qt
+import sys
+import traceback
+from pathlib import Path
 
-# Añadir el directorio raíz al path para importaciones
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+def setup_environment():
+    """Configura el entorno de ejecución."""
+    try:
+        # Obtener ruta del directorio raíz del proyecto
+        root_dir = str(Path(__file__).parent.parent.absolute())
+        print(f"Directorio raíz: {root_dir}")
+        
+        # Cambiar al directorio raíz
+        os.chdir(root_dir)
+        
+        # Añadir directorio raíz al path de Python
+        if root_dir not in sys.path:
+            sys.path.insert(0, root_dir)
+            print(f"Añadido al PATH: {root_dir}")
+        
+        # Verificar las variables de entorno de PyQt
+        pyqt_paths = [
+            os.path.join(root_dir, "venv", "Lib", "site-packages", "PyQt6", "Qt6", "plugins"),
+            os.path.join(sys.prefix, "Lib", "site-packages", "PyQt6", "Qt6", "plugins"),
+        ]
+        
+        for path in pyqt_paths:
+            if os.path.exists(path) and path not in os.environ.get("QT_PLUGIN_PATH", ""):
+                os.environ["QT_PLUGIN_PATH"] = path + os.pathsep + os.environ.get("QT_PLUGIN_PATH", "")
+                print(f"Añadida ruta de plugins Qt: {path}")
+        
+        return True
+        
+    except Exception as e:
+        print(f"Error al configurar el entorno: {e}")
+        traceback.print_exc()
+        return False
 
-# Importar componentes de Kairos
-from ui.workflow_panel_simplified import WorkflowPanelSimplified
-from ui.theme import Theme
-
-class MainWindow(QMainWindow):
-    """Ventana principal de Kairos con interfaz simplificada"""
-    
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Kairos - Inteligencia Competitiva")
-        self.setMinimumSize(1200, 800)
-        
-        # Configurar tema
-        self.init_theme()
-        
-        # Configurar UI
-        self.init_ui()
-        
-    def init_theme(self):
-        """Inicializar tema visual"""
-        # Aplicar paleta de colores
-        self.setPalette(Theme.get_palette("mixed"))
-        
-    def init_ui(self):
-        """Inicializar interfaz de usuario"""
-        # Widget central
-        central_widget = QWidget()
-        self.setCentralWidget(central_widget)
-        
-        # Layout principal
-        main_layout = QVBoxLayout(central_widget)
-        main_layout.setContentsMargins(20, 20, 20, 20)
-        main_layout.setSpacing(20)
-        
-        # Título de la aplicación
-        title_label = QLabel("KAIROS INTELLIGENCE SYSTEM")
-        title_label.setStyleSheet("font-size: 24px; font-weight: bold; color: white;")
-        title_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        # Subtítulo
-        subtitle_label = QLabel("Plataforma de Inteligencia Competitiva")
-        subtitle_label.setStyleSheet("font-size: 16px; color: #d0d0d8;")
-        subtitle_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        
-        # Panel de flujo de trabajo simplificado
-        self.workflow_panel = WorkflowPanelSimplified()
-        
-        # Añadir componentes al layout principal
-        main_layout.addWidget(title_label)
-        main_layout.addWidget(subtitle_label)
-        main_layout.addWidget(self.workflow_panel, 1)  # 1 = stretch factor
-        
-        # Barra de estado
-        status_bar = QStatusBar()
-        status_bar.showMessage("Listo")
-        self.setStatusBar(status_bar)
+def run_application():
+    """Ejecuta la aplicación principal."""
+    try:
+        print("\nIniciando aplicación...")
+        from main_simple import main
+        return main()
+    except Exception as e:
+        print(f"\nError al iniciar la aplicación: {e}")
+        traceback.print_exc()
+        return 1
 
 def main():
-    """Función principal para ejecutar la aplicación"""
-    app = QApplication(sys.argv)
+    """Función principal de ejecución."""
+    print("\n=== Kairos Intelligence System ===")
+    print(f"Python {sys.version}")
     
-    # Aplicar hoja de estilos global
-    app.setStyleSheet(Theme.get_stylesheet("mixed"))
+    if not setup_environment():
+        print("\nError: No se pudo configurar el entorno correctamente")
+        return 1
     
-    # Crear y mostrar ventana principal
-    window = MainWindow()
-    window.show()
+    print("\nEntorno configurado correctamente")
+    print("--------------------------------")
     
-    # Ejecutar bucle de eventos
-    sys.exit(app.exec())
+    return run_application()
 
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except KeyboardInterrupt:
+        print("\nAplicación terminada por el usuario")
+        sys.exit(0)
+    except Exception as e:
+        print(f"\nError fatal: {e}")
+        traceback.print_exc()
+        sys.exit(1)

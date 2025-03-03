@@ -1,22 +1,48 @@
 @echo off
-echo Ejecutando Kairos con interfaz simplificada...
+echo ===================================================
+echo      Kairos Intelligence System - Version Simple
+echo ===================================================
 echo.
 
-REM Verificar si Python está instalado
-python --version >nul 2>&1
-if %errorlevel% neq 0 (
-    echo Error: Python no está instalado o no se encuentra en el PATH.
-    echo Por favor, instala Python 3.9 o superior.
+REM Verificar Python
+python --version 2>NUL
+if errorlevel 1 (
+    echo Error: Python no está instalado o no está en el PATH
+    echo Por favor, instale Python 3.8 o superior
     pause
     exit /b 1
 )
 
-REM Ejecutar Kairos con interfaz simplificada
-python run_scripts/run_kairos_simplified.py
+REM Obtener directorio del script actual
+cd /d %~dp0
 
-REM Si hay un error, mostrar mensaje
-if %errorlevel% neq 0 (
+REM Verificar dependencias
+echo Verificando dependencias...
+python -c "import PyQt6" 2>NUL
+if errorlevel 1 (
+    echo Instalando dependencias...
+    cd ..
+    call install.bat
+    cd %~dp0
+)
+
+REM Verificar la fuente Inter
+REG QUERY "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts" /v "Inter Regular (TrueType)" >nul 2>&1
+if errorlevel 1 (
     echo.
-    echo Error al ejecutar Kairos. Código de error: %errorlevel%
+    echo [AVISO] La fuente Inter no está instalada en el sistema.
+    echo Para una mejor experiencia visual, instale la fuente desde:
+    echo https://fonts.google.com/specimen/Inter
+    echo.
+    pause
+)
+
+REM Ejecutar la aplicación
+echo.
+echo Iniciando Kairos...
+python run_kairos_simplified.py
+if errorlevel 1 (
+    echo.
+    echo Error al ejecutar la aplicación
     pause
 )

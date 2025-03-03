@@ -1,4 +1,4 @@
-# Sistema de diseño inspirado en JetBrains IDEs
+# Sistema de diseño inspirado en el diseño moderno de Kairos
 from math import sqrt
 
 # Constantes base
@@ -16,8 +16,8 @@ SPACING = {
     "xxl": GRID_BASE * 8,  # 64px
 }
 
-# Tipografía
-FONT_FAMILY = "Segoe UI, -apple-system, system-ui, sans-serif"
+# Tipografía - Usando Inter
+FONT_FAMILY = "Inter, -apple-system, system-ui, sans-serif"
 
 FONT_SIZE = {
     "xs": 12,
@@ -30,6 +30,7 @@ FONT_SIZE = {
 }
 
 FONT_WEIGHT = {
+    "light": 300,
     "regular": 400,
     "medium": 500,
     "semibold": 600,
@@ -44,300 +45,171 @@ LINE_HEIGHT = {
 
 # Bordes y Radios
 BORDER_RADIUS = {
-    "xs": 3,
-    "sm": 4,
-    "md": 6,
-    "lg": 8,
-    "xl": 12,
-    "rounded": 999,
+    "xs": 4,
+    "sm": 6,
+    "md": 8,
+    "lg": 12,
+    "xl": 16,
+    "full": 9999,
 }
 
-BORDER_WIDTH = {
-    "none": 0,
-    "thin": 1,
-    "normal": 2,
-    "thick": 3,
-}
-
-# Sombras
-SHADOWS = {
-    "tooltip": "0 2px 4px rgba(0, 0, 0, 0.2)",
-    "dropdown": "0 4px 8px rgba(0, 0, 0, 0.25)",
-    "card": "0 1px 3px rgba(0, 0, 0, 0.2)",
-    "modal": "0 8px 16px rgba(0, 0, 0, 0.35)",
-    "elevated": "0 2px 6px rgba(0, 0, 0, 0.3)",
-}
-
-# Colores - Estilo JetBrains Mejorado
+# Sistema de colores HSL refinado (basado en el diseño de referencia)
 COLORS = {
-    # Fondos principales
+    # Fondos (basados en --background, --card, etc.)
     "background": {
-        "primary": "#1e1f22",     # Fondo principal más oscuro y rico
-        "secondary": "#2b2d30",    # Paneles y áreas de contenido
-        "tertiary": "#333639",     # Barras de herramientas y headers
-        "elevated": "#393b40",     # Elementos elevados
+        "primary": "hsl(230, 20%, 13%)",     # --background
+        "card": "hsla(230, 30%, 17%, 0.8)",  # --card
+        "secondary": "hsl(236, 20%, 25%)",    # --secondary
+        "muted": "hsl(224, 25%, 23%)",       # --muted
+        "elevated": "hsl(230, 30%, 17%)",     # --popover
     },
     
-    # Texto
+    # Texto (basado en --foreground y variantes)
     "text": {
-        "primary": "#dfe1e5",      # Texto principal más suave
-        "secondary": "#9da0a8",    # Texto secundario más vibrante
-        "disabled": "#6f737a",     # Texto deshabilitado
-        "hint": "#787a80",         # Texto de ayuda/placeholder
+        "primary": "hsl(210, 40%, 98%)",     # --foreground
+        "secondary": "hsl(215, 20%, 70%)",    # --muted-foreground
+        "muted": "hsl(215, 20%, 65%)",       # Versión más clara de muted
     },
     
-    # Acentos Vibrantes
+    # Acentos y Estados (basados en --primary, --accent, etc.)
     "accent": {
-        "primary": "#4dabf7",      # Azul brillante (como IntelliJ)
-        "purple": "#b392f0",       # Púrpura vibrante
-        "green": "#85e89d",        # Verde menta
-        "coral": "#ff7b72",        # Coral vibrante
-        "yellow": "#ffdf5d",       # Amarillo brillante
-        "orange": "#ffa657",       # Naranja cálido
+        "primary": "hsl(204, 100%, 63%)",    # --primary
+        "orange": "hsl(24, 94%, 53%)",       # --orange
+        "red": "hsl(352, 86%, 57%)",         # --red
+        "success": "hsl(174, 75%, 53%)",     # --accent
     },
     
-    # Estados
-    "state": {
-        "hover": "#383b3f",        # Fondo hover más suave
-        "selected": "#2f3237",     # Selección más sutil
-        "pressed": "#26282c",      # Estado presionado
-        "focused": "#2979ff",      # Borde focus más brillante
-    },
-    
-    # Bordes
+    # Bordes (basados en --border y variantes)
     "border": {
-        "default": "#3b3e43",      # Bordes más visibles
-        "light": "#43474d",        # Bordes claros
-        "focus": "#2979ff",        # Borde de focus
-        "separator": "#35383c",    # Separadores sutiles
-    },
-    
-    # Feedback
-    "feedback": {
-        "success": "#4caf50",      # Verde éxito
-        "error": "#ff5370",        # Rojo error
-        "warning": "#ffcb6b",      # Amarillo advertencia
-        "info": "#82aaff",         # Azul información
+        "default": "hsl(230, 15%, 20%)",     # --border
+        "secondary": "hsla(230, 20%, 22%)",   # --sidebar-border
+        "hover": "hsl(230, 15%, 25%)",       # Versión más clara para hover
+        "primary": "hsla(204, 100%, 63%, 0.3)", # --primary con transparencia
+        "orange": "hsla(24, 94%, 53%, 0.3)",   # --orange con transparencia
+        "red": "hsla(352, 86%, 57%, 0.3)",     # --red con transparencia
     },
 }
 
-# Gradientes Refinados
-GRADIENTS = {
-    # Botones
-    "button": {
-        "primary": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #4dabf7, stop:1 #2979ff)",
-        "secondary": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #454649, stop:1 #3a3b3f)",
-        "success": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #5cb860, stop:1 #4caf50)",
-    },
-    
-    # Fondos
-    "background": {
-        "app": "qlineargradient(x1:0, y1:0, x2:1, y2:1, stop:0 #1e1f22, stop:1 #252629)",
-        "header": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #383b3f, stop:1 #2b2d30)",
-        "toolbar": "qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #333639, stop:1 #2b2d30)",
-    },
-    
-    # Acentos
-    "accent": {
-        "blue": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #4dabf7, stop:1 #2979ff)",
-        "purple": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #b392f0, stop:1 #9277d9)",
-        "success": "qlineargradient(x1:0, y1:0, x2:1, y2:0, stop:0 #85e89d, stop:1 #4caf50)",
-    },
+# Sombras refinadas
+SHADOWS = {
+    "sm": "0 2px 4px rgba(0, 0, 0, 0.1)",
+    "md": "0 5px 15px rgba(0, 0, 0, 0.2)",
+    "lg": "0 5px 30px rgba(0, 0, 0, 0.2)",
+    "primary": "0 0 15px rgba(56, 182, 255, 0.5)",    # Shadow del step-indicator-active
+    "orange": "0 5px 15px rgba(249, 115, 22, 0.3)",   # Shadow del button-orange
+    "red": "0 5px 15px rgba(234, 56, 76, 0.3)",      # Shadow del button-red
 }
 
-# Dimensiones de Componentes
-COMPONENT_DIMENSIONS = {
-    "button": {
-        "height": {
-            "sm": GRID_BASE * 3,    # 24px
-            "md": GRID_BASE * 4,    # 32px
-            "lg": GRID_BASE * 5,    # 40px
-        },
-        "padding": {
-            "sm": f"{SPACING['xs']}px {SPACING['sm']}px",  # 8px 16px
-            "md": f"{SPACING['sm']}px {SPACING['md']}px",  # 16px 24px
-            "lg": f"{SPACING['md']}px {SPACING['lg']}px",  # 24px 32px
-        },
-    },
-    
-    "input": {
-        "height": GRID_BASE * 4,     # 32px
-        "padding": SPACING["sm"],    # 16px
-    },
-    
-    "icon": {
-        "sm": GRID_BASE * 2,         # 16px
-        "md": GRID_BASE * 3,         # 24px
-        "lg": GRID_BASE * 4,         # 32px
-    },
-}
-
-# Layout
-GOLDEN_LAYOUT = {
-    "main_content": 1 / GOLDEN_RATIO,        # ~0.618 (61.8%)
-    "sidebar": 1 - (1 / GOLDEN_RATIO),       # ~0.382 (38.2%)
-    "header_height": GRID_BASE * 7,          # 56px
-    "toolbar_height": GRID_BASE * 5,         # 40px
-    "status_bar_height": GRID_BASE * 3,      # 24px
+# Transiciones
+TRANSITIONS = {
+    "fast": "150ms",
+    "normal": "300ms",
+    "slow": "500ms",
 }
 
 # Estilos de Componentes
 COMPONENT_STYLES = {
-    # Botones
-    "button": {
-        "primary": f"""
-            background: {GRADIENTS["button"]["primary"]};
-            color: {COLORS["text"]["primary"]};
-            border: 1px solid {COLORS["border"]["default"]};
-            border-radius: {BORDER_RADIUS["md"]}px;
-            padding: {COMPONENT_DIMENSIONS["button"]["padding"]["md"]};
-            font-family: {FONT_FAMILY};
-            font-size: {FONT_SIZE["md"]}px;
-            font-weight: {FONT_WEIGHT["medium"]};
-            height: {COMPONENT_DIMENSIONS["button"]["height"]["md"]}px;
-            box-shadow: {SHADOWS["card"]};
-        """,
-        "secondary": f"""
-            background: {GRADIENTS["button"]["secondary"]};
-            color: {COLORS["text"]["primary"]};
-            border: 1px solid {COLORS["border"]["default"]};
-            border-radius: {BORDER_RADIUS["md"]}px;
-            padding: {COMPONENT_DIMENSIONS["button"]["padding"]["md"]};
-            font-family: {FONT_FAMILY};
-            font-size: {FONT_SIZE["md"]}px;
-            font-weight: {FONT_WEIGHT["medium"]};
-            height: {COMPONENT_DIMENSIONS["button"]["height"]["md"]}px;
-            box-shadow: {SHADOWS["card"]};
-        """,
-        "success": f"""
-            background: {GRADIENTS["button"]["success"]};
-            color: {COLORS["text"]["primary"]};
-            border: 1px solid {COLORS["border"]["default"]};
-            border-radius: {BORDER_RADIUS["md"]}px;
-            padding: {COMPONENT_DIMENSIONS["button"]["padding"]["md"]};
-            font-family: {FONT_FAMILY};
-            font-size: {FONT_SIZE["md"]}px;
-            font-weight: {FONT_WEIGHT["medium"]};
-            height: {COMPONENT_DIMENSIONS["button"]["height"]["md"]}px;
-            box-shadow: {SHADOWS["card"]};
-        """,
-    },
-    
-    # Campos de entrada
-    "input": {
-        "default": f"""
-            background: {COLORS["background"]["secondary"]};
-            color: {COLORS["text"]["primary"]};
-            border: 1px solid {COLORS["border"]["default"]};
-            border-radius: {BORDER_RADIUS["sm"]}px;
-            padding: {SPACING["sm"]}px;
-            font-family: {FONT_FAMILY};
-            font-size: {FONT_SIZE["md"]}px;
-            height: {COMPONENT_DIMENSIONS["input"]["height"]}px;
-        """,
-        "focused": f"""
-            border: 1px solid {COLORS["accent"]["primary"]};
-            background: {COLORS["background"]["elevated"]};
-            box-shadow: {SHADOWS["elevated"]};
-        """,
-        "hover": f"""
-            border: 1px solid {COLORS["border"]["light"]};
-            background: {COLORS["background"]["elevated"]};
-        """,
-    },
-    
-    # Paneles y tarjetas
+    # Glass Panel (basado en .glass-panel)
     "panel": {
         "default": f"""
-            background: {COLORS["background"]["secondary"]};
-            border: 1px solid {COLORS["border"]["default"]};
-            border-radius: {BORDER_RADIUS["lg"]}px;
-            padding: {SPACING["md"]}px;
-            box-shadow: {SHADOWS["card"]};
-        """,
-        "elevated": f"""
-            background: {COLORS["background"]["elevated"]};
-            border: 1px solid {COLORS["border"]["light"]};
-            border-radius: {BORDER_RADIUS["lg"]}px;
-            padding: {SPACING["md"]}px;
-            box-shadow: {SHADOWS["elevated"]};
+            background-color: {COLORS["background"]["card"]};
+            backdrop-filter: blur(8px);
+            border: 1px solid hsla(236, 20%, 25%, 0.3);
+            border-radius: {BORDER_RADIUS["xl"]}px;
+            box-shadow: {SHADOWS["lg"]};
         """,
     },
     
-    # Barras de herramientas
-    "toolbar": {
-        "default": f"""
-            background: {GRADIENTS["background"]["toolbar"]};
-            border-bottom: 1px solid {COLORS["border"]["default"]};
-            min-height: {GOLDEN_LAYOUT["toolbar_height"]}px;
-            padding: 0 {SPACING["sm"]}px;
-            box-shadow: {SHADOWS["card"]};
+    # Botones (basados en .button-* clases)
+    "button": {
+        "primary": f"""
+            background-color: {COLORS["accent"]["primary"]};
+            color: {COLORS["background"]["primary"]};
+            padding: 10px 20px;
+            border-radius: {BORDER_RADIUS["lg"]}px;
+            font-weight: {FONT_WEIGHT["medium"]};
+            box-shadow: {SHADOWS["primary"]};
+            transition: all {TRANSITIONS["normal"]};
         """,
-    },
-    
-    # Encabezados
-    "header": {
-        "default": f"""
-            background: {GRADIENTS["background"]["header"]};
+        "orange": f"""
+            background-color: {COLORS["accent"]["orange"]};
+            color: {COLORS["background"]["primary"]};
+            padding: 10px 20px;
+            border-radius: {BORDER_RADIUS["lg"]}px;
+            font-weight: {FONT_WEIGHT["medium"]};
+            box-shadow: {SHADOWS["orange"]};
+            transition: all {TRANSITIONS["normal"]};
+        """,
+        "red": f"""
+            background-color: {COLORS["accent"]["red"]};
             color: {COLORS["text"]["primary"]};
-            padding: {SPACING["md"]}px;
-            font-size: {FONT_SIZE["lg"]}px;
+            padding: 10px 20px;
+            border-radius: {BORDER_RADIUS["lg"]}px;
+            font-weight: {FONT_WEIGHT["medium"]};
+            box-shadow: {SHADOWS["red"]};
+            transition: all {TRANSITIONS["normal"]};
+        """,
+    },
+    
+    # Tarjetas de Agente (basadas en .agent-card-*)
+    "agent_card": {
+        "default": f"""
+            {COMPONENT_STYLES["panel"]["default"]}
+            padding: {SPACING["lg"]}px;
+            transition: all {TRANSITIONS["normal"]};
+        """,
+        "orange": f"""
+            {COMPONENT_STYLES["panel"]["default"]}
+            padding: {SPACING["lg"]}px;
+            border-color: {COLORS["border"]["orange"]};
+            transition: all {TRANSITIONS["normal"]};
+        """,
+        "red": f"""
+            {COMPONENT_STYLES["panel"]["default"]}
+            padding: {SPACING["lg"]}px;
+            border-color: {COLORS["border"]["red"]};
+            transition: all {TRANSITIONS["normal"]};
+        """,
+    },
+    
+    # Indicadores de Paso (basados en .step-indicator-*)
+    "step": {
+        "default": f"""
+            width: 48px;
+            height: 48px;
+            border: 2px solid {COLORS["border"]["default"]};
+            border-radius: {BORDER_RADIUS["full"]}px;
+            color: {COLORS["text"]["secondary"]};
             font-weight: {FONT_WEIGHT["semibold"]};
-            min-height: {GOLDEN_LAYOUT["header_height"]}px;
-            box-shadow: {SHADOWS["card"]};
+            transition: all {TRANSITIONS["normal"]};
+        """,
+        "active": f"""
+            border-color: {COLORS["accent"]["primary"]};
+            background-color: {COLORS["accent"]["primary"]};
+            color: {COLORS["background"]["primary"]};
+            box-shadow: {SHADOWS["primary"]};
+        """,
+        "completed": f"""
+            border-color: {COLORS["accent"]["primary"]};
+            background-color: {COLORS["accent"]["primary"]}20;
+            color: {COLORS["accent"]["primary"]};
         """,
     },
     
-    # Barra de estado
-    "statusbar": {
+    # Campo de entrada (basado en .input-field)
+    "input": {
         "default": f"""
-            background: {COLORS["background"]["tertiary"]};
-            color: {COLORS["text"]["secondary"]};
-            border-top: 1px solid {COLORS["border"]["default"]};
-            min-height: {GOLDEN_LAYOUT["status_bar_height"]}px;
-            padding: 0 {SPACING["sm"]}px;
-            font-size: {FONT_SIZE["sm"]}px;
-        """,
-    },
-    
-    # Pestañas
-    "tab": {
-        "default": f"""
-            background: transparent;
-            color: {COLORS["text"]["secondary"]};
-            border: none;
-            padding: {SPACING["sm"]}px {SPACING["md"]}px;
-            font-size: {FONT_SIZE["md"]}px;
-            border-bottom: 2px solid transparent;
-        """,
-        "selected": f"""
-            color: {COLORS["text"]["primary"]};
-            background: {COLORS["background"]["elevated"]};
-            border-bottom: 2px solid {COLORS["accent"]["primary"]};
-        """,
-        "hover": f"""
-            background: {COLORS["state"]["hover"]};
-            color: {COLORS["text"]["primary"]};
-        """,
-    },
-    
-    # Menús
-    "menu": {
-        "default": f"""
-            background: {COLORS["background"]["elevated"]};
+            background-color: {COLORS["background"]["muted"]}80;
             border: 1px solid {COLORS["border"]["default"]};
-            border-radius: {BORDER_RADIUS["md"]}px;
-            padding: {SPACING["xs"]}px 0;
-            box-shadow: {SHADOWS["dropdown"]};
-        """,
-        "item": f"""
-            padding: {SPACING["xs"]}px {SPACING["md"]}px;
+            border-radius: {BORDER_RADIUS["lg"]}px;
+            padding: {SPACING["sm"]}px {SPACING["md"]}px;
             color: {COLORS["text"]["primary"]};
-            font-size: {FONT_SIZE["md"]}px;
+            transition: all {TRANSITIONS["fast"]};
         """,
-        "item_selected": f"""
-            background: {COLORS["state"]["selected"]};
-            color: {COLORS["text"]["primary"]};
+        "focus": f"""
+            border-color: {COLORS["accent"]["primary"]};
+            box-shadow: 0 0 0 2px {COLORS["accent"]["primary"]}40;
+            outline: none;
         """,
     },
 }
